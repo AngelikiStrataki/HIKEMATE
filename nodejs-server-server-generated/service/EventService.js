@@ -36,7 +36,7 @@ exports.creatEvent = function(body) {
  * event_id Long ID of event
  * returns Event
  **/
-exports.view a specific event = function(event_id) {
+exports.view_a_specific_event = function(event_id) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -63,7 +63,7 @@ exports.view a specific event = function(event_id) {
  *
  * returns Event
  **/
-exports.view events = function() {
+exports.view_events = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
