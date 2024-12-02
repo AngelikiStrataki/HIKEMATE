@@ -176,7 +176,7 @@ exports.useForum = function(trail_id) {
  * trail_id Long ID of trail
  * returns Trail
  **/
-exports.view a specific trail = function(trail_id) {
+exports.view_a_specific_trail = function(trail_id) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -205,7 +205,7 @@ exports.view a specific trail = function(trail_id) {
  *
  * returns Trail
  **/
-exports.view trails = function() {
+exports.view_trails = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
