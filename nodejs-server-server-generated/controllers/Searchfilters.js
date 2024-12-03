@@ -14,7 +14,7 @@ module.exports.enterSearchfilters = function enterSearchfilters (req, res, next,
 };
 
 module.exports.suggest_trails = function suggest_trails (req, res, next) {
-  Searchfilters.suggest trails()
+  Searchfilters.suggest_trails()
     .then(function (response) {
       utils.writeJson(res, response);
     })
