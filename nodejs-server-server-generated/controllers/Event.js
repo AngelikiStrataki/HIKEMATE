@@ -13,8 +13,8 @@ module.exports.creatEvent = function creatEvent (req, res, next, body) {
     });
 };
 
-module.exports.view a specific event = function view a specific event (req, res, next, event_id) {
-  Event.view a specific event(event_id)
+module.exports.view_a_specific_event = function view_a_specific_event (req, res, next, event_id) {
+  Event.view_a_specific_event(event_id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -23,7 +23,7 @@ module.exports.view a specific event = function view a specific event (req, res,
     });
 };
 
-module.exports.view events = function view events (req, res, next) {
+module.exports.view_events = function view_events (req, res, next) {
   Event.view events()
     .then(function (response) {
       utils.writeJson(res, response);
