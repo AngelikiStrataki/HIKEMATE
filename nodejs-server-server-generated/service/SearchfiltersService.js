@@ -30,7 +30,7 @@ exports.enterSearchfilters = function(body) {
  *
  * returns Trail
  **/
-exports.suggest trails = function() {
+exports.suggest_trails = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
