@@ -13,7 +13,7 @@ module.exports.enterSearchfilters = function enterSearchfilters (req, res, next,
     });
 };
 
-module.exports.suggest trails = function suggest trails (req, res, next) {
+module.exports.suggest_trails = function suggest_trails (req, res, next) {
   Searchfilters.suggest trails()
     .then(function (response) {
       utils.writeJson(res, response);
