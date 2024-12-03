@@ -24,7 +24,7 @@ module.exports.view_a_specific_event = function view_a_specific_event (req, res,
 };
 
 module.exports.view_events = function view_events (req, res, next) {
-  Event.view events()
+  Event.view_events()
     .then(function (response) {
       utils.writeJson(res, response);
     })
