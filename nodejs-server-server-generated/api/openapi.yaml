@@ -20,7 +20,7 @@ paths:
       summary: View trails.
       description: |
         FR3: The user must be able to view the trails.
-      operationId: view trails
+      operationId: view_trails
       parameters: []
       responses:
         "200":
@@ -341,12 +341,12 @@ paths:
       requestBody:
         description: Upload photos
         content:
-          multipart/form-data:
+          application/json:
             schema:
               $ref: '#/components/schemas/Photo'
         required: true
       responses:
-        "200":
+        "201":
           description: photo upload response
           content:
             application/json:
@@ -500,7 +500,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Searchfilters
-  /Searchfilters/Trail:
+  /Searchfilters/Trails:
     get:
       tags:
       - Searchfilters
@@ -544,8 +544,7 @@ components:
         name:
           type: string
         traillocation:
-          type: integer
-          format: int64
+          type: string
         traillength:
           type: integer
           format: int64
@@ -612,10 +611,9 @@ components:
       properties:
         photo:
           type: string
-          format: binary
       additionalProperties: false
       example:
-        photo: ""
+        photo: "new_photo.jpg"
     Error:
       required:
       - code
@@ -644,8 +642,7 @@ components:
         name:
           type: string
         location:
-          type: integer
-          format: int64
+          type: string
         date:
           type: integer
           format: int64
@@ -675,8 +672,7 @@ components:
       type: object
       properties:
         location:
-          type: integer
-          format: int64
+          type: string 
         length:
           maximum: 14
           minimum: 0.5
@@ -723,4 +719,4 @@ components:
           format: float
       example:
         trail_id: 0
-        average_rating: 6.0274563
+        average_ratting: 6.0274563
