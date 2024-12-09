@@ -41,7 +41,42 @@ let trails = [
   }
 ];
 
+// Mock δεδομένα για forums
+let forums = [
+  { 
+    forum_id: 1, 
+    trail_id: 1, 
+    messages: [
+      { userName: "Alice", userComment: "Great experience!", timestamp: "2024-12-01T10:00:00Z" },
+      { userName: "Bob", userComment: "Loved the view!", timestamp: "2024-12-02T12:15:00Z" }
+    ]
+  },
+  { 
+    forum_id: 2, 
+    trail_id: 2, 
+    messages: [
+      { userName: "Charlie", userComment: "Quite challenging!", timestamp: "2024-11-28T14:45:00Z" }
+    ]
+  },
+  { 
+    forum_id: 3, 
+    trail_id: 3, 
+    messages: []
+  }
+];
 
+// Mock δεδομένα για αγαπημένες διαδρομές
+let usersFavourites = {
+  1: [1, 3], // Ο χρήστης 1 έχει αποθηκεύσει τις διαδρομές 1 και 3 ως αγαπημένες
+  2: [2] // Ο χρήστης 2 έχει αποθηκεύσει μόνο τη διαδρομή 2
+};
+
+// Mock δεδομένα για φωτογραφίες
+let trailPhotos = {
+  1: ["mountain1.jpg", "mountain2.jpg"],
+  2: ["forest1.jpg", "forest2.jpg"],
+  3: []
+};
 
 /**
  * Create trails
