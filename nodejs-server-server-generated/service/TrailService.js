@@ -1,6 +1,48 @@
 'use strict';
 
 
+// Mock δεδομένα για trails
+let trails = [
+  {
+    trail_id: 1,
+    name: "Mountain Adventure",
+    description: "A scenic mountain trail.",
+    traillength: 12.5, // σε χιλιόμετρα
+    durationHour: 4,
+    durationMin: 30,
+    rate: [5, 4, 3], // Αξιολογήσεις
+    traillocation: "Mountain Base",
+    difficultylevel: 3, // Δυσκολία: 1 (εύκολη) έως 5 (πολύ δύσκολη)
+    photos: ["mountain1.jpg", "mountain2.jpg"]
+  },
+  {
+    trail_id: 2,
+    name: "Forest Pathway",
+    description: "Explore the dense forest.",
+    traillength: 8.3,
+    durationHour: 2,
+    durationMin: 15,
+    rate: [],
+    traillocation: "Deep Woods",
+    difficultylevel: 2,
+    photos: ["forest1.jpg", "forest2.jpg", "forest3.jpg"]
+  },
+  {
+    trail_id: 3,
+    name: "River Walk",
+    description: "A relaxing trail along the river.",
+    traillength: 5.0,
+    durationHour: 1,
+    durationMin: 45,
+    rate: [5],
+    traillocation: "Riverside",
+    difficultylevel: 1,
+    photos: []
+  }
+];
+
+
+
 /**
  * Create trails
  * FR4: The user must be able to create trails. 
