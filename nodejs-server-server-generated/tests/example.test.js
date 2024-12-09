@@ -20,3 +20,34 @@ test.after.always((t) => {
 	t.context.server.close();
 });
 
+
+
+//Test για το endpoint GET rate
+
+test('GET rate - viewTrailRating should return average rating', async (t) => {
+    const trailId = 1;
+
+    // Κλήση της API για το rate του trail
+    const response = await t.context.got(`trail/${trailId}/rate`);
+    
+    
+    t.is(response.statusCode, 200);
+    t.deepEqual(response.body, { 
+        trail_id: trailId, 
+        average_rating: 4 
+    });
+});
+
+test('GET rate - viewTrailRating should return 0 if no ratings', async (t) => {
+    const trailId = 2;
+
+    // Κλήση της API για το rate του trail χωρίς αξιολογήσεις
+    const response = await t.context.got(`trail/${trailId}/rate`);
+    
+    
+    t.is(response.statusCode, 200);
+    t.deepEqual(response.body, { 
+        trail_id: trailId, 
+        average_rating: 0 
+    });
+});
