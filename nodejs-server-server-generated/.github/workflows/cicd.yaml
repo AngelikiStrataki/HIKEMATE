@@ -12,3 +12,4 @@ Jobs:
        run: npm install
       -name: Run test
        run: npm test
+
