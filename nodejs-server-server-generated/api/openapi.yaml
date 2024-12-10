@@ -500,29 +500,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Searchfilters
-  /Searchfilters/Trails:
-    get:
-      tags:
-      - Searchfilters
-      summary: suggests trails
-      description: |
-        FR3: The System suggests trails to the user.
-      operationId: Suggest trails
-      parameters: []
-      responses:
-        "200":
-          description: Searching for trails based on your preferences...
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Trail'
-        default:
-          description: No trail found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Searchfilters
 components:
   schemas:
     Trail:
@@ -719,4 +696,4 @@ components:
           format: float
       example:
         trail_id: 0
-        average_ratting: 6.0274563
+        average_ratting: 6.0274
