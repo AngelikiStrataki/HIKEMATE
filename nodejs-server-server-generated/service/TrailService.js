@@ -40,6 +40,7 @@ let trails = [
   }
 ];
 
+
 let forums = [
   {
     trail_id: 1, // Θέση 1 στη λίστα
