@@ -2,7 +2,7 @@ name: ci
   
 on: push
 
-Jobs:
+jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
