@@ -1,12 +1,13 @@
 module.exports = {
-  apps: [
-    {
-        name: "nodejs-server-server-generated",
-        script: "npm",
-        args: "start",
-        env: {
-            PORT: 8080,
-        },
-    },
-  ],
-}
+	apps: [
+		{
+			name: "server",
+			script: "npm",
+			args: "start",
+			env: {
+				NODE_ENV: "production",
+				PORT: 8080,
+			},
+		},
+	],
+};
