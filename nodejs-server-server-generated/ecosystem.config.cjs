@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-        name: "example-backend-0",
+        name: "nodejs-server-server-generated",
         script: "npm",
         args: "start",
         env: {
