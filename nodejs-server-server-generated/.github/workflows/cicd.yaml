@@ -12,7 +12,8 @@ jobs:
       - name: Setup nodejs
         uses: actions/setup-node@v2
         with:
-          NODE_VERSION: 22.11.0
+          node-version: 16
+
 
       - name: Download dependencies
         run: npm install
