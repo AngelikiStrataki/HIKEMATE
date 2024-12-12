@@ -1,7 +1,7 @@
 module.exports = {
 	apps: [
 		{
-			name: "http://localhost:",
+			name: "http://localhost",
 			script: "npm",
 			args: "start",
 			env: {
