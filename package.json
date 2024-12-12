@@ -6,10 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "test:backend": "c8 ava",
-    "test:frontend": "cypress run",
-    "cypress": "cypress open",
-    "test": "npm run test:backend && npm run test:frontend"
+    "test": "c8 ava",
   },
   "keywords": [
     "swagger"
