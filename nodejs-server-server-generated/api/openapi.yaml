@@ -20,7 +20,7 @@ paths:
       summary: View trails.
       description: |
         FR3: The user must be able to view the trails.
-      operationId: view trails
+      operationId: view_trails
       parameters: []
       responses:
         "200":
@@ -72,7 +72,7 @@ paths:
       summary: View a specific trail
       description: |
         FR3: The user must be able to view the trails.
-      operationId: View a specific trail
+      operationId: view_a_specific_trail
       parameters:
       - name: trail_id
         in: path
