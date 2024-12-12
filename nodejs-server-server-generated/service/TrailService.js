@@ -242,7 +242,6 @@ export function useForum(trail_id) {
   });
 }
 
-
 /**
  * View a specific trail
  * FR3: The user must be able to view the trails. 
@@ -250,25 +249,30 @@ export function useForum(trail_id) {
  * trail_id Long ID of trail
  * returns Trail
  **/
-exports.view a specific trail = function(trail_id) {
+ /**
+ * View a specific trail by ID.
+ * @param {number} trail_id - The ID of the trail to view.
+ * @returns {Promise<Object>} - Returns the trail object if found.
+ */
+export function view_a_specific_trail(trail_id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "traillength" : 1,
-  "durationHour" : 5,
-  "rate" : 7,
-  "name" : "name",
-  "description" : "description",
-  "trail_id" : 0,
-  "traillocation" : 6,
-  "difficultylevel" : 2,
-  "durationMin" : 5
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    // Έλεγχος αν το trail_id είναι αριθμός
+    if (typeof trail_id !== "number" || trail_id <= 0) {
+      //reject(new Error("Invalid trail ID. It must be a positive number."));
+      return reject(new Error("Invalid trail ID. It must be a positive number."));
     }
+
+    // Αναζήτηση διαδρομής με το συγκεκριμένο ID
+    const trail = trails.find(t => t.trail_id === trail_id);
+
+    // Έλεγχος αν βρέθηκε η διαδρομή
+    if (!trail) {
+      //reject(new Error(`Trail with ID ${trail_id} not found.`));
+      return res.status(404).json({ message: `Trail with ID ${trailId} not found.` });
+    }
+
+    // Επιστροφή της διαδρομής
+    resolve(trail);
   });
 }
 
@@ -279,28 +283,24 @@ exports.view a specific trail = function(trail_id) {
  *
  * returns Trail
  **/
-exports.view trails = function() {
+/**
+ * View all available trails.
+ * @returns {Promise<Array>} - Returns a list of all trails.
+ */
+
+ export function view_trails() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "traillength" : 1,
-  "durationHour" : 5,
-  "rate" : 7,
-  "name" : "name",
-  "description" : "description",
-  "trail_id" : 0,
-  "traillocation" : 6,
-  "difficultylevel" : 2,
-  "durationMin" : 5
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    // Έλεγχος αν υπάρχουν διαθέσιμες διαδρομές
+    console.log('Checking available trails...');
+    if (trails.length === 0) {
+      reject(new Error("No trails available."));
+      return;
     }
+
+    // Επιστροφή όλων των διαδρομών 
+    resolve(trails);
   });
 }
-
 
 /**
  * View photos
