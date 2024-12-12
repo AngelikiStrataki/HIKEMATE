@@ -101,3 +101,59 @@ describe('Verify Trail component content', () => {
             });
     });
 });
+
+describe('Test PUT /trail/{trail_id}/rate Endpoint', () => {
+    it('Validates PUT /trail/{trail_id}/rate API response', () => {
+      // Επισκέπτεται το Swagger Docs για το API
+      cy.visit('http://localhost:8080/docs');
+  
+      // Επεκτείνει και εκτελεί το request για το PUT /trail/{trail_id}/rate
+      cy.get('div#operations-Trail-rateTrail .opblock-summary').click();
+      cy.get('div#operations-Trail-rateTrail .try-out__btn').click();
+  
+      // Εκτελεί το PUT αίτημα
+      cy.get('div#operations-Trail-rateTrail .execute-wrapper .btn')
+        .contains('Execute')
+        .click();
+  
+      // Επιβεβαίωση του Status Code
+      cy.get('.responses-table .response-col_status')
+        .should('contain', '200');
+  
+      // Ελέγχει το σώμα της απόκρισης
+      cy.get('.responses-table .response-col_description pre')
+        .invoke('text')
+        .then((responseBody) => {
+          console.log('Raw response body:', responseBody);
+          let cleanResponseBody = responseBody.trim();
+  
+          // Αφαιρεί οτιδήποτε μετά το κλείσιμο του array (}] αν υπάρχει)
+          if (cleanResponseBody.includes('}]')) {
+            cleanResponseBody = cleanResponseBody.substring(0, cleanResponseBody.lastIndexOf('}]') + 2);
+          }
+  
+          try {
+            // Προσπαθεί να αναλύσει την απόκριση ως JSON
+            let jsonResponse = JSON.parse(cleanResponseBody);
+            console.log('Parsed JSON:', jsonResponse);
+  
+            // Επαληθεύει ότι η απόκριση περιέχει τα σωστά δεδομένα
+            expect(jsonResponse).to.be.an('object');
+            expect(jsonResponse).to.have.property('trail_id', 123); // Trail ID που χρησιμοποιήθηκε
+            expect(jsonResponse).to.have.property('rate', 4); // Rate που έγινε
+            expect(jsonResponse).to.have.property('name'); // Ελέγχει ότι υπάρχει το πεδίο name
+            expect(jsonResponse).to.have.property('description'); // Ελέγχει ότι υπάρχει το πεδίο description
+            expect(jsonResponse).to.have.property('traillength'); // Ελέγχει ότι υπάρχει το πεδίο traillength
+            expect(jsonResponse).to.have.property('durationHour'); // Ελέγχει ότι υπάρχει το πεδίο durationHour
+            expect(jsonResponse).to.have.property('durationMin'); // Ελέγχει ότι υπάρχει το πεδίο durationMin
+            expect(jsonResponse).to.have.property('traillocation'); // Ελέγχει ότι υπάρχει το πεδίο traillocation
+            expect(jsonResponse).to.have.property('difficultylevel'); // Ελέγχει ότι υπάρχει το πεδίο difficultylevel
+            expect(jsonResponse).to.have.property('photos'); // Ελέγχει ότι υπάρχει το πεδίο photos
+          }
+          catch (error) {
+            console.error('Error parsing JSON:', error);
+          }
+        });
+    });
+  });
+  
