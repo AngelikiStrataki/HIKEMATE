@@ -33,18 +33,18 @@ test('GET /event/:event_id - view_a_specific_event should return a specific even
   });
 
 // Test for handling an invalid event ID
-test('GET /events/:event_id - Retrieve an invalid event', async (t) => {
+test('GET /event/:event_id - Retrieve an invalid event', async (t) => {
     const { got } = t.context;
 
     const invalidEventId = 999; // An ID that doesn’t exist
 
-    // Send request to retrieve an invalid event
-    const response = await got(`events/${invalidEventId}`, { method: 'GET' });
+     //Send request to retrieve an invalid event
+     const response = await got(`event/${invalidEventId}`, { method: 'GET' });
 
-    // Validate the response status
+     //Validate the response status
     t.is(response.statusCode, 404);
 
-    // Validate the error message
+     //Validate the error message
     t.is(response.body.message, 'not found', 'Should return appropriate error message');
 });
 
