@@ -47,7 +47,7 @@ export function view_a_specific_event(event_id) {
     const event = events.find((e) => e.event_id === event_id);
 
     if (!event) {
-      reject(new Error(`Event with ID ${event_id} not found.`));
+      reject(new Error(`not found`));
       return;
     }
 
