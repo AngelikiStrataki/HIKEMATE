@@ -36,7 +36,7 @@ let events = [
  * @param {number} event_id - ID of the event
  * @returns {Promise<Object>} - Returns a promise resolving to the event object
  */
-export function view_a_specific_event(event_id) {
+exports.view_a_specific_event = function (event_id) {
   return new Promise(function (resolve, reject) {
     if (typeof event_id !== "number" || event_id <= 0) {
       reject(new Error("Invalid event ID. It must be a positive number."));
@@ -60,7 +60,7 @@ export function view_a_specific_event(event_id) {
  *
  * @returns {Promise<Object[]>} - Returns a promise resolving to the list of events
  */
-export function view_events() {
+exports.view_events = function () {
   return new Promise((resolve, reject) => {
     if (!events || events.length === 0) {
       reject(new Error('No events available.'));
