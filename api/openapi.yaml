@@ -20,40 +20,11 @@ paths:
       summary: View trails.
       description: |
         FR3: The user must be able to view the trails.
-      operationId: view trails
+      operationId: view_trails
       parameters: []
       responses:
         "200":
           description: trails to view
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Trail'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Trail
-    post:
-      tags:
-      - Trail
-      summary: Create trails
-      description: |
-        FR4: The user must be able to create trails.
-      operationId: creatTrail
-      parameters: []
-      requestBody:
-        description: Create a trail
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Trail'
-        required: true
-      responses:
-        "201":
-          description: new trail response
           content:
             application/json:
               schema:
@@ -72,7 +43,7 @@ paths:
       summary: View a specific trail
       description: |
         FR3: The user must be able to view the trails.
-      operationId: View a specific trail
+      operationId: view_a_specific_trail
       parameters:
       - name: trail_id
         in: path
@@ -90,6 +61,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Trail'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+    delete:
+      tags:
+      - Trail
+      summary: Delete a specific trail
+      description: |
+        FR10: The user must be able to delete a specific trail.
+      operationId: deleteTrail
+      parameters:
+      - name: trail_id
+        in: path
+        description: ID of trail to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: "Trail deleted successfully, no content"
         default:
           description: unexpected error
           content:
@@ -122,93 +120,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Forum'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Trail
-  /trail/{trail_id}/forum/{forum_id}:
-    post:
-      tags:
-      - Trail
-      summary: Send messages to forum.
-      description: |
-        FR6: The user must be able to use a forum for each trail.
-      operationId: sendmessage
-      parameters:
-      - name: forum_id
-        in: path
-        description: ID of forum
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-      - name: trail_id
-        in: path
-        description: ID of trail
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        description: forum
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Forum'
-        required: true
-      responses:
-        "201":
-          description: Forum
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Forum'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Trail
-  /trail/{trail_id}/favourite:
-    put:
-      tags:
-      - Trail
-      summary: Store favourite trail
-      description: |
-        FR9: The user must be able to store favourite trails.
-      operationId: storeFavourite
-      parameters:
-      - name: trail_id
-        in: path
-        description: ID of trail to add to favourites
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        description: Store favourite trails
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Favourite'
-        required: true
-      responses:
-        "200":
-          description: trail response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Favourite'
         default:
           description: unexpected error
           content:
@@ -341,44 +252,17 @@ paths:
       requestBody:
         description: Upload photos
         content:
-          multipart/form-data:
+          application/json:
             schema:
               $ref: '#/components/schemas/Photo'
         required: true
       responses:
-        "200":
+        "201":
           description: photo upload response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Photo'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Trail
-    delete:
-      tags:
-      - Trail
-      summary: Delete a specific trail
-      description: |
-        FR10: The user must be able to delete a specific trail.
-      operationId: deleteTrail
-      parameters:
-      - name: trail_id
-        in: path
-        description: ID of trail to delete
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "204":
-          description: "Trail deleted successfully, no content"
         default:
           description: unexpected error
           content:
@@ -393,40 +277,11 @@ paths:
       summary: View events.
       description: |
         FR3: The user must be able to view the events.
-      operationId: view events
+      operationId: view_events
       parameters: []
       responses:
         "200":
           description: events to view
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Event
-    post:
-      tags:
-      - Event
-      summary: Create events
-      description: |
-        FR4: The user must be able to create events.
-      operationId: creatEvent
-      parameters: []
-      requestBody:
-        description: Create event
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Event'
-        required: true
-      responses:
-        "201":
-          description: new event response
           content:
             application/json:
               schema:
@@ -445,7 +300,7 @@ paths:
       summary: View a specific event
       description: |
         FR3: The user must be able to view the events.
-      operationId: View a specific event
+      operationId: view_a_specific_event
       parameters:
       - name: event_id
         in: path
@@ -500,29 +355,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Searchfilters
-  /Searchfilters/Trail:
-    get:
-      tags:
-      - Searchfilters
-      summary: suggests trails
-      description: |
-        FR3: The System suggests trails to the user.
-      operationId: Suggest trails
-      parameters: []
-      responses:
-        "200":
-          description: Searching for trails based on your preferences...
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Trail'
-        default:
-          description: No trail found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Searchfilters
 components:
   schemas:
     Trail:
@@ -544,8 +376,7 @@ components:
         name:
           type: string
         traillocation:
-          type: integer
-          format: int64
+          type: string
         traillength:
           type: integer
           format: int64
@@ -586,15 +417,6 @@ components:
       example:
         userComment: userComment
         userName: userName
-    Favourite:
-      required:
-      - favourite
-      type: object
-      properties:
-        favourite:
-          type: boolean
-      example:
-        favourite: true
     Rate:
       required:
       - rate
@@ -612,10 +434,9 @@ components:
       properties:
         photo:
           type: string
-          format: binary
       additionalProperties: false
       example:
-        photo: ""
+        photo: "new_photo.jpg"
     Error:
       required:
       - code
@@ -644,8 +465,7 @@ components:
         name:
           type: string
         location:
-          type: integer
-          format: int64
+          type: string
         date:
           type: integer
           format: int64
@@ -675,8 +495,7 @@ components:
       type: object
       properties:
         location:
-          type: integer
-          format: int64
+          type: string 
         length:
           maximum: 14
           minimum: 0.5
@@ -723,4 +542,4 @@ components:
           format: float
       example:
         trail_id: 0
-        average_rating: 6.0274563
+        average_ratting: 6.0274
