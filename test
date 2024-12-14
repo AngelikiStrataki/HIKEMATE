@@ -18,8 +18,6 @@ test.after.always((t) => {
 });
 
 
-
-
 test('GET forum - useForum should return forum comments for a specific trail', async (t) => {
     const trailId = 1;
 
@@ -39,20 +37,6 @@ test('GET forum - useForum should return forum comments for a specific trail', a
 		]
 	  });
 });
-
-
-/*test('GET forum - useForum should reject when trail_id does not exist', async (t) => {
-	const trailId = 999; // trail_id που δεν υπάρχει  
-	// Επαλήθευση ότι η υπόσχεση απορρίπτεται
-	const response = await t.context.got(`trail/${trailId}/forum`);
-    //t.fail(`Request should have failed for trail ID ${trailId}`);
-    t.is(error.response.statusCode, 400);
-
-    // Επαλήθευση ότι το response body περιέχει το σωστό μήνυμα λάθους
-    t.deepEqual(error.response.body, {
-      message: `No forum found for trail with ID ${trailId}.`
-})
-}); */
 
 
 
@@ -117,134 +101,18 @@ test('GET /trail - view_trails should return all available trails', async (t) =>
 	});
 
 
-test('POST /trail - createTrail should create a new trail', async (t) => {
-	const trailData = {
-	  name: "Beach Trail",
-	  traillength: 6.5,
-	  description: "A scenic trail by the beach.",
-	  durationHour: 1,
-	  durationMin: 30,
-	  traillocation: "Beachside",
-	  difficultylevel: 2,
-	  rate: [0],
-	  trail_id: 4,
-	};
-  
-	// Κλήση POST request για δημιουργία trail
-	const response = await t.context.got.post('trail', {
-		method: 'POST',
-		json: {newTrail: trailData}
-	});
-  
-	// Έλεγχος ότι ο server επιστρέφει statusCode 201 (Created)
-	t.is(response.statusCode, 201);
-  
-	// Έλεγχος ότι τα δεδομένα που επιστρέφει είναι σωστά
-	t.deepEqual(response.body, {	  
-	  name: "Beach Trail",
-	  traillength: 6.5,
-	  description: "A scenic trail by the beach.",
-	  durationHour: 1,
-	  durationMin: 30,
-	  trail_id: 4,  // Αυτόματο ID βασίζεται στο μέγεθος του array `trails`
-	  traillocation: "Beachside",
-	  difficultylevel: 2,
-	  rate: [5, 4]   // Έλεγχος ότι όλα τα δεδομένα που στάλθηκαν υπάρχουν στην απάντηση
-	});
-  });
+// Test for handling an invalid event ID
+test('GET /trail/:trail_id - Retrieve an invalid trail', async (t) => {
+  const { got } = t.context;
 
-  test('GET /trail/:2 - view_a_specific_trail should return a specific trail', async (t) => {
-	const trailId = 2;  // Το ID που θέλουμε να ελέγξουμε
+  const invalidTrailId = 999; // An ID that doesn’t exist
 
-	// Κάνουμε GET request για το trail με το trail_id
-	const response = await t.context.got(`trail/${trailId}`);
-  
-	t.is(response.statusCode, 200);  // Αναμενόμενη απάντηση 200 (OK)
-  
-	t.deepEqual(response.body, {
-		trail_id: trailId,
-		name: "Forest Pathway",
-		description: "Explore the dense forest.",
-		traillength: 8.3,
-		durationHour: 2,
-		durationMin: 15,
-		rate: [],
-		traillocation: "Deep Woods",
-		difficultylevel: 2,
-		photos: ["forest1.jpg", "forest2.jpg", "forest3.jpg"]
-	});	  
-  });
- 
-const newLocal = false;
-/*
-  test('GET /trail/:1 - view_a_specific_trail should return a specific trail', async (t) => {
-	const trailId = 1;  // Το ID που θέλουμε να ελέγξουμε
+   //Send request to retrieve an invalid event
+   const response = await got(`trail/${invalidTrailId}`, { method: 'GET' });
 
-	// Κάνουμε GET request για το trail με το trail_id
-	const response = await t.context.got(`trail/${trailId}`);
-  
-	t.is(response.statusCode, 200);  // Αναμενόμενη απάντηση 200 (OK)
-  
-	t.deepEqual(response.body, {
-		trail_id: trailId,
-    	name: "Mountain Adventure",
-    	description: "A scenic mountain trail.",
-    	traillength: 12.5, // σε χιλιόμετρα
-    	durationHour: 4,
-    	durationMin: 30,
-    	rate: [5, 4, 3], // Αξιολογήσεις
-    	traillocation: "Mountain Base",
-    	difficultylevel: 3, // Δυσκολία: 1 (εύκολη) έως 5 (πολύ δύσκολη)
-    	photos: ["photo1.jpg", "photo2.jpg"]
-	});	  
-  });
-  
-  test('GET /trail/:3 - view_a_specific_trail should return a specific trail', async (t) => {
-	const trailId = 3;  // Το ID που θέλουμε να ελέγξουμε
+   //Validate the response status
+  t.is(response.statusCode, 404);
 
-	// Κάνουμε GET request για το trail με το trail_id
-	const response = await t.context.got(`trail/${trailId}`);
-  
-	t.is(response.statusCode, 200);  // Αναμενόμενη απάντηση 200 (OK)
-  
-	t.deepEqual(response.body, {
-		trail_id: trailId,
-		name: "River Walk",
-		description: "A relaxing trail along the river.",
-		traillength: 5.0,
-		durationHour: 1,
-		durationMin: 45,
-		rate: [5],
-		traillocation: "Riverside",
-		difficultylevel: 1,
-		photos: []
-	});	  
-  });
- */ 
-
-  /*
-  test('GET /trail/:trailId - Debugging', async (t) => {
-	const trailId = 999;
-	const { got } = t.context;
-  
-	const response = await got(`trail/${trailId}`, { method: 'GET', throwHttpErrors: newLocal });
-	console.log('Status Code:', response.statusCode);
-	console.log('Body:', response.body);
-  
-	t.is(response.statusCode, 404); // Αναμένουμε 404
-	t.is(JSON.parse(response.body).message, `Trail with ID ${trailId} not found.`);
-	
-  }); 
-  */
-   /* 
-  test('throws error when trail is not found', async t => {
-	const trailId = 999;
-	
-	await t.throwsAsync(
-	  async () => view_a_specific_trail(trailId),
-	  { message: 'Trail with ID 999 not found.' }
-	);
-	t.is(error.response.statusCode, 404); // Αναμένουμε 404
-  });
-
-*/
+   //Validate the error message
+  t.is(response.body.message, 'not found', 'Should return appropriate error
+message');
