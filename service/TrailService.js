@@ -288,7 +288,7 @@ export function view_a_specific_trail(trail_id) {
  * @returns {Promise<Array>} - Returns a list of all trails.
  */
 
- export function view_trails() {
+ exports.view_trails= function () {
   return new Promise(function(resolve, reject) {
     // Έλεγχος αν υπάρχουν διαθέσιμες διαδρομές
     console.log('Checking available trails...');
