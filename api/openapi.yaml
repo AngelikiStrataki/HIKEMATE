@@ -36,35 +36,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Trail
-    post:
-      tags:
-      - Trail
-      summary: Create trails
-      description: |
-        FR4: The user must be able to create trails.
-      operationId: creatTrail
-      parameters: []
-      requestBody:
-        description: Create a trail
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Trail'
-        required: true
-      responses:
-        "201":
-          description: new trail response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Trail'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Trail
   /trail/{trail_id}:
     get:
       tags:
@@ -72,7 +43,7 @@ paths:
       summary: View a specific trail
       description: |
         FR3: The user must be able to view the trails.
-      operationId: View a specific trail
+      operationId: view_a_specific_trail
       parameters:
       - name: trail_id
         in: path
@@ -149,93 +120,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Forum'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Trail
-  /trail/{trail_id}/forum/{forum_id}:
-    post:
-      tags:
-      - Trail
-      summary: Send messages to forum.
-      description: |
-        FR6: The user must be able to use a forum for each trail.
-      operationId: sendmessage
-      parameters:
-      - name: forum_id
-        in: path
-        description: ID of forum
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-      - name: trail_id
-        in: path
-        description: ID of trail
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        description: forum
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Forum'
-        required: true
-      responses:
-        "201":
-          description: Forum
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Forum'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Trail
-  /trail/{trail_id}/favourite:
-    put:
-      tags:
-      - Trail
-      summary: Store favourite trail
-      description: |
-        FR9: The user must be able to store favourite trails.
-      operationId: storeFavourite
-      parameters:
-      - name: trail_id
-        in: path
-        description: ID of trail to add to favourites
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        description: Store favourite trails
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Favourite'
-        required: true
-      responses:
-        "200":
-          description: trail response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Favourite'
         default:
           description: unexpected error
           content:
@@ -409,35 +293,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Event
-    post:
-      tags:
-      - Event
-      summary: Create events
-      description: |
-        FR4: The user must be able to create events.
-      operationId: creatEvent
-      parameters: []
-      requestBody:
-        description: Create event
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Event'
-        required: true
-      responses:
-        "201":
-          description: new event response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Event
   /event/{event_id}:
     get:
       tags:
@@ -562,15 +417,6 @@ components:
       example:
         userComment: userComment
         userName: userName
-    Favourite:
-      required:
-      - favourite
-      type: object
-      properties:
-        favourite:
-          type: boolean
-      example:
-        favourite: true
     Rate:
       required:
       - rate
