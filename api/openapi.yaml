@@ -1,0 +1,726 @@
+openapi: 3.0.3
+info:
+  title: HikeMate
+  description: Your Companion on Every Trail
+  version: 3.0.3
+servers:
+- url: /
+tags:
+- name: Trail
+  description: Trail actions
+- name: Event
+  description: Event actions
+- name: Searchfilters
+  description: Searchfilters actions
+paths:
+  /trail:
+    get:
+      tags:
+      - Trail
+      summary: View trails.
+      description: |
+        FR3: The user must be able to view the trails.
+      operationId: view trails
+      parameters: []
+      responses:
+        "200":
+          description: trails to view
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trail'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+    post:
+      tags:
+      - Trail
+      summary: Create trails
+      description: |
+        FR4: The user must be able to create trails.
+      operationId: creatTrail
+      parameters: []
+      requestBody:
+        description: Create a trail
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trail'
+        required: true
+      responses:
+        "201":
+          description: new trail response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trail'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+  /trail/{trail_id}:
+    get:
+      tags:
+      - Trail
+      summary: View a specific trail
+      description: |
+        FR3: The user must be able to view the trails.
+      operationId: View a specific trail
+      parameters:
+      - name: trail_id
+        in: path
+        description: ID of trail
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: trail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trail'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+  /trail/{trail_id}/forum:
+    get:
+      tags:
+      - Trail
+      summary: Use forum.
+      description: |
+        FR6: The user must be able to use a forum for each trail.
+      operationId: useForum
+      parameters:
+      - name: trail_id
+        in: path
+        description: ID of trail to use forum
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: trail response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forum'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+  /trail/{trail_id}/forum/{forum_id}:
+    post:
+      tags:
+      - Trail
+      summary: Send messages to forum.
+      description: |
+        FR6: The user must be able to use a forum for each trail.
+      operationId: sendmessage
+      parameters:
+      - name: forum_id
+        in: path
+        description: ID of forum
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: trail_id
+        in: path
+        description: ID of trail
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: forum
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forum'
+        required: true
+      responses:
+        "201":
+          description: Forum
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forum'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+  /trail/{trail_id}/favourite:
+    put:
+      tags:
+      - Trail
+      summary: Store favourite trail
+      description: |
+        FR9: The user must be able to store favourite trails.
+      operationId: storeFavourite
+      parameters:
+      - name: trail_id
+        in: path
+        description: ID of trail to add to favourites
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Store favourite trails
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Favourite'
+        required: true
+      responses:
+        "200":
+          description: trail response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Favourite'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+  /trail/{trail_id}/rate:
+    get:
+      tags:
+      - Trail
+      summary: View trail rating
+      description: |
+        FR8: The user must be able to view the trail's rating.
+      operationId: viewTrailRating
+      parameters:
+      - name: trail_id
+        in: path
+        description: ID of trail to view rating
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: trail rating response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+    put:
+      tags:
+      - Trail
+      summary: Rate a trail
+      description: |
+        FR7: The user must be able to rate the trail.
+      operationId: rateTrail
+      parameters:
+      - name: trail_id
+        in: path
+        description: ID of trail to rate
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Rate the trail
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rate'
+        required: true
+      responses:
+        "200":
+          description: trail rating response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trail'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+  /trail/{trail_id}/photos:
+    get:
+      tags:
+      - Trail
+      summary: View photos
+      description: |
+        FR13: The user must be able to view the uploaded photos.
+      operationId: viewPhotos
+      parameters:
+      - name: trail_id
+        in: path
+        description: ID of trail to view photos
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: photo view response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Photo'
+                x-content-type: application/json
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+    post:
+      tags:
+      - Trail
+      summary: Upload photos
+      description: |
+        FR12: The user must be able to upload photos.
+      operationId: uploadPhotos
+      parameters:
+      - name: trail_id
+        in: path
+        description: ID of trail to upload photos
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Upload photos
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Photo'
+        required: true
+      responses:
+        "200":
+          description: photo upload response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Photo'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+    delete:
+      tags:
+      - Trail
+      summary: Delete a specific trail
+      description: |
+        FR10: The user must be able to delete a specific trail.
+      operationId: deleteTrail
+      parameters:
+      - name: trail_id
+        in: path
+        description: ID of trail to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: "Trail deleted successfully, no content"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Trail
+  /event:
+    get:
+      tags:
+      - Event
+      summary: View events.
+      description: |
+        FR3: The user must be able to view the events.
+      operationId: view events
+      parameters: []
+      responses:
+        "200":
+          description: events to view
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Event
+    post:
+      tags:
+      - Event
+      summary: Create events
+      description: |
+        FR4: The user must be able to create events.
+      operationId: creatEvent
+      parameters: []
+      requestBody:
+        description: Create event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
+      responses:
+        "201":
+          description: new event response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Event
+  /event/{event_id}:
+    get:
+      tags:
+      - Event
+      summary: View a specific event
+      description: |
+        FR3: The user must be able to view the events.
+      operationId: View a specific event
+      parameters:
+      - name: event_id
+        in: path
+        description: ID of event
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Event
+  /Searchfilters:
+    post:
+      tags:
+      - Searchfilters
+      summary: Enter search filters
+      description: |
+        FR4: The user must be able to enter search filters.
+      operationId: enterSearchfilters
+      parameters: []
+      requestBody:
+        description: Enter search filters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Searchfilters'
+        required: true
+      responses:
+        "201":
+          description: Successfully entering search filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        default:
+          description: Invalid information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Searchfilters
+  /Searchfilters/Trail:
+    get:
+      tags:
+      - Searchfilters
+      summary: suggests trails
+      description: |
+        FR3: The System suggests trails to the user.
+      operationId: Suggest trails
+      parameters: []
+      responses:
+        "200":
+          description: Searching for trails based on your preferences...
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trail'
+        default:
+          description: No trail found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Searchfilters
+components:
+  schemas:
+    Trail:
+      required:
+      - description
+      - difficultylevel
+      - durationHour
+      - durationMin
+      - name
+      - rate
+      - trail_id
+      - traillength
+      - traillocation
+      type: object
+      properties:
+        trail_id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        traillocation:
+          type: integer
+          format: int64
+        traillength:
+          type: integer
+          format: int64
+        durationHour:
+          type: integer
+          format: int64
+        durationMin:
+          type: integer
+          format: int64
+        difficultylevel:
+          type: integer
+          format: int64
+        description:
+          type: string
+        rate:
+          type: integer
+          format: int64
+      example:
+        traillength: 1
+        durationHour: 5
+        rate: 7
+        name: name
+        description: description
+        trail_id: 0
+        traillocation: 6
+        difficultylevel: 2
+        durationMin: 5
+    Forum:
+      required:
+      - userComment
+      - userName
+      type: object
+      properties:
+        userName:
+          type: string
+        userComment:
+          type: string
+      example:
+        userComment: userComment
+        userName: userName
+    Favourite:
+      required:
+      - favourite
+      type: object
+      properties:
+        favourite:
+          type: boolean
+      example:
+        favourite: true
+    Rate:
+      required:
+      - rate
+      type: object
+      properties:
+        rate:
+          maximum: 5
+          minimum: 1
+          type: integer
+          format: int64
+    Photo:
+      required:
+      - photo
+      type: object
+      properties:
+        photo:
+          type: string
+          format: binary
+      additionalProperties: false
+      example:
+        photo: ""
+    Error:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Event:
+      required:
+      - date
+      - description
+      - event_id
+      - hour
+      - location
+      - min
+      - name
+      type: object
+      properties:
+        event_id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        location:
+          type: integer
+          format: int64
+        date:
+          type: integer
+          format: int64
+        hour:
+          type: integer
+          format: int64
+        min:
+          type: integer
+          format: int64
+        description:
+          type: string
+      example:
+        date: 1
+        event_id: 0
+        min: 5
+        hour: 5
+        name: name
+        description: description
+        location: 6
+    Searchfilters:
+      required:
+      - difficultylevel
+      - durationHour
+      - durationMin
+      - length
+      - location
+      type: object
+      properties:
+        location:
+          type: integer
+          format: int64
+        length:
+          maximum: 14
+          minimum: 0.5
+          type: integer
+          format: int64
+        durationHour:
+          maximum: 8
+          minimum: 0
+          type: integer
+          format: int64
+        durationMin:
+          maximum: 59
+          minimum: 0
+          type: integer
+          format: int64
+        difficultylevel:
+          maximum: 5
+          minimum: 1
+          type: integer
+          format: int64
+    Message:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+      example:
+        code: 0
+        message: message
+    inline_response_200:
+      type: object
+      properties:
+        trail_id:
+          type: integer
+          format: int64
+        average_rating:
+          type: number
+          description: Average rating of the trail
+          format: float
+      example:
+        trail_id: 0
+        average_rating: 6.0274563
