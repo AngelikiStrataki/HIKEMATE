@@ -1,0 +1,38 @@
+{
+  "name": "hikemate",
+  "version": "3.0.3",
+  "description": "Your Companion on Every Trail",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js",
+    "test:backend": "c8 ava",
+    "test:frontend": "cypress run",
+    "cypress": "cypress open",
+    "test": "npm run test:backend && npm run test:frontend"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "connect": "^3.2.0",
+    "express": "^4.21.2",
+    "js-yaml": "^3.3.0",
+    "oas3-tools": "^2.2.3"
+  },
+  "devDependencies": {
+    "ava": "^5.3.1",
+    "c8": "^8.0.1",
+    "cypress": "^13.16.1",
+    "got": "^11.8.3",
+    "test-listen": "^1.1.0"
+  },
+  "ava": {
+    "extensions": {
+      "js": true
+    }
+  }
+}
