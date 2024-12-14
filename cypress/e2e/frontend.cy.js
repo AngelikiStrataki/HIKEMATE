@@ -1,167 +1,240 @@
-
-
-/**describe('Initial visits', () => {
-    it('should display 10 components with the correct names', () => {
-      const expectedNames = [
-        'Trail',
-        'Forum',
-        'Favourite',
-        'Rate',
-        'Photo',
-        'Error',
-        'Event',
-        'Searchfilters',
-        'Message',
-        'inline_response_200',
-      ];
-  
-      // Επισκέψου τη σελίδα
-      cy.visit('http://localhost:8080/docs');
-  
-      // Εντόπισε όλα τα components
-      cy.get('div.model-container')
-        .should('have.length', expectedNames.length) // Επιβεβαιώνουμε ότι υπάρχουν 12 στοιχεία
-        .each(($el, index) => {
-          // Ελέγχουμε ότι κάθε component έχει το σωστό όνομα
-          cy.wrap($el)
-            .find('.model-title') // Στοχεύει το στοιχείο που περιέχει το όνομα
-            .should('have.text', expectedNames[index]); // Συγκρίνουμε το κείμενο με τη λίστα
-        });
-    });
-  });
-  
-  describe('Initial visits', () => {
-    it('should display 10 clickable components', () => {
-      // Επισκέψου τη σελίδα
-      cy.visit('http://localhost:8080/docs');
-  
-      // Εντόπισε όλα τα components
-      cy.get('div.model-container')
-        .should('have.length', 10) // Επιβεβαιώνουμε ότι υπάρχουν 12 στοιχεία
-        .each(($el) => {
-          // Βεβαιώσου ότι το component είναι ορατό
-          cy.wrap($el).should('be.visible');
-  
-          // Κάνε click στο component
-          cy.wrap($el).click();
-  
-          // Προαιρετικά: Ελέγξτε μια αλλαγή που συμβαίνει μετά το click
-          // π.χ., αν ένα dropdown ανοίγει, ελέγξτε το:
-          cy.wrap($el).find('.model-toggle').should('have.class', 'collapsed');
-        });
-    });
-  });
-
-  describe('Verify all clickable components have content', () => {
-    const components = [
-      'Trail',
-      'Forum',
-      'Favourite',
-      'Rate',
-      'Photo',
-      'Error',
-      'Event',
-      'Searchfilters',
-      'Message',
-      'inline_response_200'
-    ];
-  
-    components.forEach((component) => {
-      it(`should contain text for the ${component} component`, () => {
-        // Επισκέψου τη σελίδα
+describe('Initial visits', () => {
+    it('navigates to sign in screen', () => {
         cy.visit('http://localhost:8080/docs');
-      
-        // Βρες το component και κάνε κλικ για να το επεκτείνεις
-        cy.get(`#model-${component}`) // Χρησιμοποιεί το ID του κάθε component (π.χ. #model-Trail)
-          .should('be.visible') // Επιβεβαιώνει ότι το στοιχείο είναι ορατό
-          .click(); // Κάνε κλικ για να το επεκτείνεις
-      
-        // Ελέγχει ότι το component περιέχει κείμενο
-        cy.get(`#model-${component}`) // Χρησιμοποιούμε το ID για να βρούμε το component
-          .invoke('text') // Παίρνουμε το κείμενο από το στοιχείο
-          .should('not.be.empty'); // Ελέγχει ότι το κείμενο δεν είναι άδειο
-      });
+        cy.get('.download-url-button.button').should('be.visible').click();
+        cy.get('.description').should('have.text', 'Your Companion on Every Trail');
+        cy.get('section.block.col-12.block-desktop.col-12-desktop') // Στοχεύει το section
+          .find('div.opblock-tag-section') // Βρίσκει όλα τα div με την κλάση "opblock-tag-section"
+          .should('have.length', 3) // Ελέγχει αν υπάρχουν ακριβώς 3 στοιχεία
+          .and('be.visible'); // Ελέγχει ότι είναι ορατά
     });
-  }); 
-  
-  describe('Verify Trail component content', () => {
-    it('should print only the text characters of the Trail component', () => {
-        // Επισκέψου τη σελίδα
-        cy.visit('http://localhost:8080/docs');
-        
-        // Βρες το Trail component και κάνε κλικ για να το επεκτείνεις
-        cy.get('#model-Trail') // Χρησιμοποιεί το ID του Trail component
-            .should('be.visible') // Επιβεβαιώνει ότι το στοιχείο είναι ορατό
-            .click(); // Κάνε κλικ για να το επεκτείνεις
-        
-        // Παίρνουμε το καθαρό κείμενο και αφαιρούμε όλα τα κενά, αλλαγές γραμμής κ.λπ.
-        cy.get('#model-Trail') // Χρησιμοποιούμε το ID για να βρούμε το component
-            .invoke('text') // Παίρνουμε το κείμενο από το στοιχείο
-            .then((text) => {
-                const cleanedText = text.replace(/\s+/g, ''); // Αφαιρούμε όλα τα κενά
-                console.log(cleanedText); // Εκτυπώνουμε μόνο τους χαρακτήρες του κειμένου
-            });
-    });
-}); */
+});
+ 
 
-describe('Test PUT /trail/{trail_id}/rate Endpoint', () => {
-    it('Validates PUT /trail/{trail_id}/rate API response', () => {
-      // Επισκέπτεται το Swagger Docs για το API
+describe('Test GET /trail Endpoint', () => {
+    it('Validates GET /trail API response', () => {
+      // Επισκέπτεται το Swagger Docs
       cy.visit('http://localhost:8080/docs');
-  
-      // Επεκτείνει και εκτελεί το request για το PUT /trail/{trail_id}/rate
-      cy.get('div#operations-Trail-rateTrail .opblock-summary').click();
-      cy.get('div#operations-Trail-rateTrail .try-out__btn').click();
-  
-      // Βάζει το trail_id στο πεδίο
-      //cy.get('input[name="trail_id - ID of trail to rate"]').clear().type('123'); // Trail ID = 123
-  
-      // Βάζει την αξιολόγηση του μονοπατιού (rate) στο σώμα του αιτήματος
-      //cy.get('input[name="rate"]').clear().type('4'); // Rate = 4
-  
-      // Εκτελεί το PUT αίτημα
-      cy.get('div#operations-Trail-rateTrail .execute-wrapper .btn')
+      
+      // Επεκτείνει και εκτελεί το request
+      cy.get('div#operations-Trail-view_trails .opblock-summary').click();
+      cy.get('div#operations-Trail-view_trails .try-out__btn').click();
+      cy.get('div#operations-Trail-view_trails .execute-wrapper .btn')
         .contains('Execute')
         .click();
-  
-      // Επιβεβαίωση του Status Code
+      
+      // Επιβεβαίωση Status Code
       cy.get('.responses-table .response-col_status')
         .should('contain', '200');
-  
-      // Ελέγχει το σώμα της απόκρισης
-      cy.get('.responses-table .response-col_description pre')
+      
+        cy.get('.responses-table .response-col_description pre')
         .invoke('text')
         .then((responseBody) => {
           console.log('Raw response body:', responseBody);
           let cleanResponseBody = responseBody.trim();
-  
+      
           // Αφαιρεί οτιδήποτε μετά το κλείσιμο του array (}] αν υπάρχει)
           if (cleanResponseBody.includes('}]')) {
             cleanResponseBody = cleanResponseBody.substring(0, cleanResponseBody.lastIndexOf('}]') + 2);
           }
-  
+      
           try {
-            // Προσπαθεί να αναλύσει την απόκριση ως JSON
             let jsonResponse = JSON.parse(cleanResponseBody);
             console.log('Parsed JSON:', jsonResponse);
-  
-            // Επαληθεύει ότι η απόκριση περιέχει τα σωστά δεδομένα
-            expect(jsonResponse).to.be.an('object');
-            expect(jsonResponse).to.have.property('trail_id', 123); // Trail ID που χρησιμοποιήθηκε
-            expect(jsonResponse).to.have.property('rate', 4); // Rate που έγινε
-            expect(jsonResponse).to.have.property('name'); // Ελέγχει ότι υπάρχει το πεδίο name
-            expect(jsonResponse).to.have.property('description'); // Ελέγχει ότι υπάρχει το πεδίο description
-            expect(jsonResponse).to.have.property('traillength'); // Ελέγχει ότι υπάρχει το πεδίο traillength
-            expect(jsonResponse).to.have.property('durationHour'); // Ελέγχει ότι υπάρχει το πεδίο durationHour
-            expect(jsonResponse).to.have.property('durationMin'); // Ελέγχει ότι υπάρχει το πεδίο durationMin
-            expect(jsonResponse).to.have.property('traillocation'); // Ελέγχει ότι υπάρχει το πεδίο traillocation
-            expect(jsonResponse).to.have.property('difficultylevel'); // Ελέγχει ότι υπάρχει το πεδίο difficultylevel
-            expect(jsonResponse).to.have.property('photos'); // Ελέγχει ότι υπάρχει το πεδίο photos
-          }
+      
+            // Επαληθεύει το μήκος και τα δεδομένα
+            expect(jsonResponse).to.be.an('array').and.have.length(3);
+            expect(jsonResponse[0]).to.deep.equal({
+              trail_id: 1,
+              name: "Mountain Adventure",
+              description: "A scenic mountain trail.",
+              traillength: 12.5,
+              durationHour: 4,
+              durationMin: 30,
+              rate: [5, 4, 3],
+              traillocation: "Mountain Base",
+              difficultylevel: 3,
+              photos: ["mountain1.jpg", "mountain2.jpg"],
+            });
+            expect(jsonResponse[1]).to.deep.equal({
+                trail_id: 2,
+                name: "Forest Pathway",
+                description: "Explore the dense forest.",
+                traillength: 8.3,
+                durationHour: 2,
+                durationMin: 15,
+                rate: [],
+                traillocation: "Deep Woods",
+                difficultylevel: 2,
+                photos: ["forest1.jpg", "forest2.jpg", "forest3.jpg"],
+              });
+          
+              expect(jsonResponse[2]).to.deep.equal({
+                trail_id: 3,
+                name: "River Walk",
+                description: "A relaxing trail along the river.",
+                traillength: 5,
+                durationHour: 1,
+                durationMin: 45,
+                rate: [5],
+                traillocation: "Riverside",
+                difficultylevel: 1,
+                photos: [],
+              });
+
+          } 
           catch (error) {
             console.error('Error parsing JSON:', error);
           }
         });
     });
   });
+
+  describe('Test POST /trail Endpoint', () => {
+    it('Creates a new trail and verifies the response', () => {
+      // Επισκέπτεται το Swagger Docs
+      cy.visit('http://localhost:8080/docs');
+      
+      // Επεκτείνει το section για το POST /trail
+      cy.get('div#operations-Trail-creatTrail .opblock-summary').click();
+      cy.get('div#operations-Trail-creatTrail .try-out__btn').click();
+      
+      // Εισάγει το σώμα του αιτήματος
+      const requestBody = {
+        traillength: 1,
+        durationHour: 5,
+        rate: 7,
+        name: "Test Trail",
+        description: "A test description",
+        trail_id: 0,
+        traillocation: "Test Location",
+        difficultylevel: 2,
+        durationMin: 5
+      };
+    
+      cy.get('.body-param__text', { timeout: 10000 }).should('be.visible');
+    
+      // Εκτελεί το POST αίτημα
+      cy.get('div#operations-Trail-creatTrail .execute-wrapper .btn')
+        .contains('Execute')
+        .click();
+      
+      // Επιβεβαίωση Status Code
+      cy.get('.responses-table .response-col_status')
+        .should('contain', '201');
+      
+      // Ελέγχει αν η κονσόλα περιέχει το αναμενόμενο μήνυμα
+      cy.get('.responses-table .response-col_description pre')
+        .invoke('text')
+        .then((responseBody) => {
+          console.log('POST Response Body:', responseBody);
+          
+          let cleanResponseBody = responseBody.trim();
+          
+          // Επαλήθευση ότι το Response Body περιέχει τα σωστά δεδομένα
+          try {
+            const responseJson = JSON.parse(cleanResponseBody);
+            console.log('Parsed JSON:', responseJson);
+            
+            // Επαλήθευση των δεδομένων του trail
+            expect(responseJson).to.deep.equal(requestBody);
   
+            // Ελέγχει αν το response περιλαμβάνει το σωστό trail name και location
+            expect(responseJson.name).to.equal('Test Trail');
+            expect(responseJson.traillocation).to.equal('Test Location');
+  
+          } catch (error) {
+            console.error('Error parsing JSON:', error);
+          }
+        });
+    });
+  });
+
+  describe('Test DELETE /trail Endpoint', () => {
+    it('Deletes a specific trail and verifies the response', () => {
+        cy.visit('http://localhost:8080/docs');
+
+        cy.get('div#operations-Trail-deleteTrail .opblock-summary').click();
+        cy.get('div#operations-Trail-deleteTrail .try-out__btn').click();
+
+        const trailId = 1; 
+
+        cy.get('div#operations-Trail-deleteTrail input[type="text"]')
+          .clear()
+          .type(trailId);
+
+        cy.get('div#operations-Trail-deleteTrail .execute-wrapper .btn')
+          .contains('Execute')
+          .click();
+
+        cy.get('.responses-table .response-col_status', { timeout: 20000 })
+          .should('contain', '204');
+
+        cy.get('.responses-table .response-col_description pre')
+          .invoke('text')
+          .then((text) => {
+              console.log('Raw Response Body:', JSON.stringify(text.trim()));
+
+              const cleanText = text.trim().replace(/\s+/g, ''); 
+              expect(cleanText).to.be.oneOf(['', '{}']); 
+          });
+
+        cy.request({
+            method: 'GET',
+            url: `http://localhost:8080/trail/${trailId}`,
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(404);
+        });
+    });
+});
+
+
+
+
+
+  describe('Test DELETE /trail Endpoint', () => {
+    it('Deletes a specific trail and verifies the response', () => {
+        // Επισκέπτεται το Swagger Docs
+        cy.visit('http://localhost:8080/docs');
+
+        // Επεκτείνει το section για το DELETE /trail/{trail_id}
+        cy.get('div#operations-Trail-deleteTrail .opblock-summary').click();
+        cy.get('div#operations-Trail-deleteTrail .try-out__btn').click();
+
+        // Ορίζει το ID του trail προς διαγραφή
+        const trailId = 1; // Αντικαταστήστε με το trail ID που θέλετε να διαγράψετε
+        
+        cy.get('div#operations-Trail-deleteTrail input[type="text"]')
+          .clear()
+          .type(trailId);
+
+        // Εκτελεί το DELETE αίτημα
+        cy.get('div#operations-Trail-deleteTrail .execute-wrapper .btn')
+          .contains('Execute')
+          .click();
+
+        // Επιβεβαίωση Status Code
+        cy.get('.responses-table .response-col_status', { timeout: 10000 })
+          .should('contain', '204');
+
+          cy.get('.responses-table .response-col_description pre')
+          .invoke('text')
+          .then((text) => {
+              try {
+                  const responseBody = JSON.parse(text.trim());
+                  expect(responseBody).to.deep.equal({}); // Επιβεβαίωση ότι είναι κενό JSON αντικείμενο
+              } catch (error) {
+                  expect(text.trim()).to.equal(''); // Εναλλακτικά, δέχεται άδειο body
+              }
+          });
+        // Επιβεβαίωση διαγραφής με επανέλεγχο
+        cy.request({
+            method: 'GET',
+            url: `http://localhost:8080/trail/${trailId}`,
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(404); // Αναμένουμε 404 αφού το trail έχει διαγραφεί
+        });
+    });
+});
