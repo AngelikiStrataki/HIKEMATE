@@ -40,45 +40,6 @@ let events = [
     description: "A guided eco-friendly walk exploring the flora and fauna of the nature reserve trail."
   }
 ];
- 
- /**
-  * Δημιουργία event
-  * 
-  * body Event Δεδομένα για το event
-  * returns Event
-  **/
- exports.creatEvent = function (body) {
-  return new Promise(function (resolve, reject) {
-    // Έλεγχος αν υπάρχουν τα απαιτούμενα πεδία
-    if (
-      !body.name ||
-      !body.date ||
-      !body.location ||
-      typeof body.hour !== "number" ||
-      typeof body.min !== "number"
-    ) {
-      reject(new Error("Missing or invalid required fields: name, date, location, hour, or min."));
-      return;
-    }
-
-    // Δημιουργία νέου event
-    const newEvent = {
-      event_id: events.length + 1, // Αυτόματο ID για το event
-      name: body.name,
-      description: body.description || "", // Αν δεν υπάρχει περιγραφή, τότε είναι κενή
-      location: body.location,
-      date: body.date,
-      hour: body.hour,
-      min: body.min,
-    };
-
-    // Προσθήκη του event στον πίνακα events
-    events.push(newEvent);
-
-    // Επιστροφή του νέου event
-    resolve(newEvent);
-  });
-};
 
  
 
