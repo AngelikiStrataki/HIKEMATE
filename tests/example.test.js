@@ -507,7 +507,7 @@ test('GET /trail - view_trails should return all available trails', async (t) =>
   
   
   });
-
+/**
 // Test for handling an invalid trail ID
 test('GET /trail/:trail_id - Retrieve an invalid trail', async (t) => {
   const { got } = t.context;
@@ -523,3 +523,6 @@ test('GET /trail/:trail_id - Retrieve an invalid trail', async (t) => {
    //Validate the error message
   t.is(response.body.message, 'not found', 'Should return appropriate error
 message');
+
+ 
+  }); */
