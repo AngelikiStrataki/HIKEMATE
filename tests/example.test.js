@@ -508,6 +508,7 @@ test('GET /trail - view_trails should return all available trails', async (t) =>
   
   });
 
+// Test for handling an invalid trail ID
 test('GET /trail/:trail_id - Retrieve an invalid trail', async (t) => {
   const { got } = t.context;
 
