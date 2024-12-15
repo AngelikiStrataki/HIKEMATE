@@ -18,6 +18,8 @@ test.after.always((t) => {
 });
 
 
+
+//test returns the forum for a specific trail
 test('GET forum - useForum should return forum comments for a specific trail', async (t) => {
     const trailId = 1;
 
@@ -39,7 +41,7 @@ test('GET forum - useForum should return forum comments for a specific trail', a
 });
 
 
-
+//test that returns empty forum
 test('GET forum - useForum should return "No comments available" for empty forum', async (t) => {
 	const trailId = 3; // trail_id με κενό forum
   
@@ -52,12 +54,11 @@ test('GET forum - useForum should return "No comments available" for empty forum
 	});
 });
  
-
+//test returns all trails
 test('GET /trail - view_trails should return all available trails', async (t) => {
 
 	  const response = await t.context.got(`trail`);
 
-  
 	  t.is(response.statusCode, 200);
 	  t.deepEqual(response.body, [
 		{
@@ -101,7 +102,20 @@ test('GET /trail - view_trails should return all available trails', async (t) =>
 	});
 
 
-// Test for handling an invalid event ID
+
+//test retunrs a specific trail
+  test('GET /trail/:2 - view_a_specific_trail should return a specific trail', async (t) => {
+	const trailId = 2;  // Το ID που θέλουμε να ελέγξουμε
+
+	// Κάνουμε GET request για το trail με το trail_id
+	const response = await t.context.got(`trail/${trailId}`);
+  
+	t.is(response.statusCode, 200);  // Αναμενόμενη απάντηση 200 (OK)
+  
+  
+  });
+
+// Test for handling an invalid trail ID
 test('GET /trail/:trail_id - Retrieve an invalid trail', async (t) => {
   const { got } = t.context;
 
