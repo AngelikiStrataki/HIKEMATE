@@ -37,7 +37,19 @@ let trails = [
     traillocation: "Riverside",
     difficultylevel: 1,
     photos: []
-  }
+  },
+  {
+  trail_id: 4,
+  name: "Desert Trek",
+  description: "An adventurous journey through the arid desert.",
+  traillength: 15.0,
+  durationHour: 5,
+  durationMin: 0,
+  rate: [4],
+  traillocation: "Sahara Dunes",
+  difficultylevel: 4,
+  photos: []
+}
 ];
 
 // Mock δεδομένα για forums
