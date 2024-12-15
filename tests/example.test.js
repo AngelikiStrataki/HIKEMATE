@@ -464,7 +464,7 @@ test('GET /trail - view_trails should return all available trails', async (t) =>
 		  rate: [5, 4, 3], // Αξιολογήσεις
 		  traillocation: "Mountain Base",
 		  difficultylevel: 3, // Δυσκολία: 1 (εύκολη) έως 5 (πολύ δύσκολη)
-		  photos: ["photo1.jpg", "photo2.jpg"]
+		  photos: ["mountain1.jpg", "mountain2.jpg"]
 		},
 		{
 		  trail_id: 2,
@@ -476,7 +476,7 @@ test('GET /trail - view_trails should return all available trails', async (t) =>
 		  rate: [],
 		  traillocation: "Deep Woods",
 		  difficultylevel: 2,
-		  photos: ["forest1.jpg", "forest2.jpg", "forest3.jpg"]
+		  photos: ["forest1.jpg", "forest2.jpg", "forest3.jpg", "new_photo.jpg"]
 		},
 		{
 		  trail_id: 3,
