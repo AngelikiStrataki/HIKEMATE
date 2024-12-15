@@ -29,17 +29,3 @@ module.exports.enterSearchfilters = function enterSearchfilters(req, res, next, 
       utils.writeJson(res, { message: error.message }, statusCode);
     });
 }; 
-
-/** 
-module.exports.suggest_trails = function suggest_trails(req, res, next, body) {
-  // Περνάμε τα φίλτρα από το σώμα του αιτήματος (body)
-  Searchfilters.suggest_trails(body)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-*/
