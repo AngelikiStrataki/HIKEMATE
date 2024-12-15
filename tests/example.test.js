@@ -358,7 +358,6 @@ test('POST filters - enterSearchfilters should return filtered trails', async (t
   test('POST filters - enterSearchfilters should fail with no filters', async (t) => {
     const filters = {};
   
-    console.log('Sending filters to endpoint:', filters);
     const { statusCode } = await t.context.got.post(`Searchfilters`, {
         json: filters,
         responseType: 'json'
@@ -378,7 +377,6 @@ test('POST filters - enterSearchfilters should return filtered trails', async (t
       location: 'Sahara'
     };
   
-    console.log('Sending filters to endpoint:', filters);
   
     const { statusCode } = await t.context.got.post(`Searchfilters`, {
         json: filters,
