@@ -281,39 +281,26 @@ exports.useForum = function(trail_id) {
   });
 }
 
-
 /**
- * View a specific trail
- * FR3: The user must be able to view the trails. 
- *
- * trail_id Long ID of trail
- * returns Trail
- **/
- /**
  * View a specific trail by ID.
  * @param {number} trail_id - The ID of the trail to view.
  * @returns {Promise<Object>} - Returns the trail object if found.
  */
-exports.view_a_specific_trail = function (trail_id) {
-return new Promise(function (resolve, reject) 
- {
-    // Έλεγχος αν το trail_id είναι αριθμός
+  exports.view_a_specific_trail = function (trail_id) {
+  return new Promise(function (resolve, reject) {
     if (typeof trail_id !== "number" || trail_id <= 0) {
       reject(new Error("Invalid trail ID. It must be a positive number."));
       return;
     }
 
-    // Αναζήτηση διαδρομής με το συγκεκριμένο ID
-    //const trail = trails.find(t => t.trail_id === trail_id);
+    // Find the event by ID
     const trail = trails.find((t) => t.trail_id === trail_id);
 
-    // Έλεγχος αν βρέθηκε η διαδρομή
     if (!trail) {
-      //reject(new Error(`Trail with ID ${trail_id} not found.`));
-      return res.status(404).json({ message: `Trail with ID ${trailId} not found.` });
+      reject(new Error(`not found`));
+      return;
     }
 
-    // Επιστροφή της διαδρομής
     resolve(trail);
   });
 }
