@@ -487,7 +487,7 @@ test('GET /trail - view_trails should return all available trails', async (t) =>
                  traillength: 15.0,
                  durationHour: 5,
                  durationMin: 0,
-                 rate: [3],
+                 rate: 3,
                  traillocation: "Sahara Dunes",
                  difficultylevel: 4,
                  photos: []
