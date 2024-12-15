@@ -20,7 +20,7 @@ test.after.always((t) => {
 	t.context.server.close();
 });
 
-/**
+
 test('GET rate - viewTrailRating should return average rating', async (t) => {
     const trailId = 1;
 
@@ -34,7 +34,7 @@ test('GET rate - viewTrailRating should return average rating', async (t) => {
         average_rating: 4 
     });
 });
-*/
+
 
 test('GET rate - viewTrailRating should return 0 if no ratings', async (t) => {
     const trailId = 2;
@@ -52,7 +52,7 @@ test('GET rate - viewTrailRating should return 0 if no ratings', async (t) => {
 
 test('PUT /trail/{trail_id}/rate - πρέπει να ενημερώνει τη βαθμολογία του trail', async (t) => {
     const trailId = 1;
-    const newRating = 5;  // Νέα βαθμολογία για το trail
+    const newRating = [5, 4, 3];  // Νέα βαθμολογία για το trail
     
     // Στέλνουμε το αίτημα PUT με τη νέα βαθμολογία στο σώμα του αιτήματος
     const response = await t.context.got(`trail/${trailId}/rate`, {
