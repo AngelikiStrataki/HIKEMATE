@@ -51,7 +51,6 @@
 
  exports.enterSearchfilters = function (body) {
   return new Promise(function (resolve, reject) {
-    console.log("Received filters:", body);
 
     // Έλεγχος αν δεν υπάρχουν φίλτρα
     if (!body || Object.keys(body).length === 0) {
