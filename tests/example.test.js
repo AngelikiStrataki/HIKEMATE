@@ -313,8 +313,7 @@ test('POST filters - enterSearchfilters should return filtered trails', async (t
             durationMin: 30,
             difficultylevel: 3
     };
-  
-    console.log('Sending filters to endpoint:', filters);
+
   
     try {
       const response = await t.context.got.post('Searchfilters', {
