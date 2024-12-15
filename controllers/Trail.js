@@ -24,16 +24,6 @@ module.exports.rateTrail = function rateTrail (req, res, next, body, trail_id) {
     });
 };
 
-module.exports.sendmessage = function sendmessage (req, res, next, body, forum_id, trail_id) {
-  Trail.sendmessage(body, forum_id, trail_id)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
 
 module.exports.uploadPhotos = function uploadPhotos (req, res, next, trail_id) {
   Trail.uploadPhotos(trail_id)
