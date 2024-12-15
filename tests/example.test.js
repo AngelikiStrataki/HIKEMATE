@@ -261,6 +261,48 @@ test('GET /event/:event_id - Retrieve an invalid event', async (t) => {
     t.is(response.body.message, 'not found', 'Should return appropriate error message');
 });
 
+test('GET /event - view_events should return all available events', async (t) => {
+    const response = await t.context.got('event');
+  
+    if (response.statusCode === 200) {
+      t.is(response.statusCode, 200);
+      t.deepEqual(response.body, [
+        {
+          event_id: 1,
+          name: 'Morning Trail Run',
+          location: 101,
+          date: 20241210,
+          hour: 6,
+          min: 30,
+          description: 'A refreshing 5-mile run through the scenic riverside trail.',
+        },
+        {
+          event_id: 2,
+          name: 'Sunset Trail Walk',
+          location: 102,
+          date: 20241211,
+          hour: 17,
+          min: 45,
+          description: 'A relaxing evening walk along the lakeside trail to catch the sunset.',
+        },
+        {
+          event_id: 3,
+          name: 'Eco Trail Exploration',
+          location: 103,
+          date: 20241212,
+          hour: 9,
+          min: 0,
+          description: 'A guided eco-friendly walk exploring the flora and fauna of the nature reserve trail.',
+        },
+      ]);
+    } else if (response.statusCode === 500) {
+      t.is(response.statusCode, 500);
+      t.deepEqual(response.body, { message: 'No events available.' });
+    } else {
+      t.fail(`Unexpected response: ${response.statusCode}`);
+    }
+});
+
 test('POST filters - enterSearchfilters should return filtered trails', async (t) => {
     const filters = { 
             location: 'Mountain Base',
