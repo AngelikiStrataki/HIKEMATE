@@ -345,7 +345,7 @@ test('POST filters - enterSearchfilters should return filtered trails', async (t
         ]
       }, 'Response body does not match expected structure');
   
-      console.log('Test passed for filters:', filters);
+      //console.log('Test passed for filters:', filters);
   
     } catch (error) {
       // Αν αποτύχει η κλήση, εκτυπώστε το σφάλμα και αποτύχετε τη δοκιμή
