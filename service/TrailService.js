@@ -173,105 +173,7 @@ exports.uploadPhotos = function (trail_id, body) {
 
 
 
-/**
- * Use forum.
- * FR6: The user must be able to use a forum for each trail. 
- *
- * trail_id Long ID of trail to use forum
- * returns Forum
- **/
 
-// Αποθήκευση σχολίων φόρουμ ανά trail_id
-let forumData = {};
-
-/**
- * Use forum for a specific trail.
- * @param {number} trail_id - The ID of the trail.
- * @returns {Promise<Object>} - Returns all forum comments for the trail.
- */
-exports.useForum = function(trail_id) {
-  return new Promise(function(resolve, reject) {
-    // Έλεγχος αν υπάρχει forum για το συγκεκριμένο trail_id
-    if (!forumData[trail_id]) {
-      reject(new Error(`No forum found for trail with ID ${trail_id}.`));
-      return;
-    }
-
-    // Επιστροφή σχολίων του forum
-    resolve({
-      trail_id: trail_id,
-      comments: forumData[trail_id]
-    });
-  });
-};
-
-
-
-/**
- * View a specific trail
- * FR3: The user must be able to view the trails. 
- *
- * trail_id Long ID of trail
- * returns Trail
- **/
- /**
- /**
- * View a specific trail by ID.
- * @param {number} trail_id - The ID of the trail to view.
- * @returns {Promise<Object>} - Returns the trail object if found, or an error if not.
- */
- exports.view_a_specific_trail = function(trail_id) {
-  return new Promise(function(resolve, reject) {
-    // Έλεγχος αν το trail_id είναι αριθμός
-    if (typeof trail_id !== "number" || trail_id <= 0) {
-      return reject({
-        statusCode: 400,
-        message: "Invalid trail ID. It must be a positive number."
-      });
-    }
-
-    // Αναζήτηση διαδρομής με το συγκεκριμένο ID
-    const trail = trails.find(t => t.trail_id === trail_id);
-
-    // Έλεγχος αν βρέθηκε η διαδρομή
-    if (!trail) {
-      return reject({
-        statusCode: 404,
-        message: `Trail with ID ${trail_id} not found.`
-      });
-    }
-
-    // Επιστροφή της διαδρομής
-    resolve(trail);
-  });
-};
-
-
-
-
-
-/**
- * View trails.
- * FR3: The user must be able to view the trails. 
- *
- * returns Trail
- **/
-/**
- * View all available trails.
- * @returns {Promise<Array>} - Returns a list of all trails.
- */
- exports.view_trails = function() {
-  return new Promise(function(resolve, reject) {
-    // Έλεγχος αν υπάρχουν διαθέσιμες διαδρομές
-    if (trails.length === 0) {
-      reject(new Error("No trails available."));
-      return;
-    }
-
-    // Επιστροφή όλων των διαδρομών
-    resolve(trails);
-  });
-};
 
 
 
@@ -348,3 +250,95 @@ exports.viewPhotos = function(trail_id) {
   });
 };
 
+
+
+
+
+/**
+ * Use forum for a specific trail.
+ * @param {number} trail_id - The ID of the trail.
+ * @returns {Promise<Object>} - Returns all forum comments for the trail.
+ */
+
+exports.useForum = function(trail_id) {
+  return new Promise(function(resolve, reject) {
+    // Έλεγχος αν υπάρχει forum για το συγκεκριμένο trail_id
+    const forumIndex = trail_id - 1; // Μετατροπή ID σε index
+    const forum = forums[forumIndex];
+
+    // Για παράδειγμα, εάν θέλεις να ελέγξεις αν τα σχόλια είναι μη κενά
+  if (forum.messages.length === 0) {
+    resolve({
+      trail_id: trail_id,
+      messages: "No comments available."
+    });
+  }
+    // Επιστροφή σχολίων του forum
+    resolve({
+      trail_id: trail_id,
+      messages: forum.messages
+    });
+  });
+}
+
+
+/**
+ * View a specific trail
+ * FR3: The user must be able to view the trails. 
+ *
+ * trail_id Long ID of trail
+ * returns Trail
+ **/
+ /**
+ * View a specific trail by ID.
+ * @param {number} trail_id - The ID of the trail to view.
+ * @returns {Promise<Object>} - Returns the trail object if found.
+ */
+exports.view_a_specific_trail = function (trail_id) {
+return new Promise(function (resolve, reject) 
+ {
+    // Έλεγχος αν το trail_id είναι αριθμός
+    if (typeof trail_id !== "number" || trail_id <= 0) {
+      reject(new Error("Invalid trail ID. It must be a positive number."));
+      return;
+    }
+
+    // Αναζήτηση διαδρομής με το συγκεκριμένο ID
+    //const trail = trails.find(t => t.trail_id === trail_id);
+    const trail = trails.find((t) => t.trail_id === trail_id);
+
+    // Έλεγχος αν βρέθηκε η διαδρομή
+    if (!trail) {
+      //reject(new Error(`Trail with ID ${trail_id} not found.`));
+      return res.status(404).json({ message: `Trail with ID ${trailId} not found.` });
+    }
+
+    // Επιστροφή της διαδρομής
+    resolve(trail);
+  });
+}
+
+/**
+ * View trails.
+ * FR3: The user must be able to view the trails. 
+ *
+ * returns Trail
+ **/
+/**
+ * View all available trails.
+ * @returns {Promise<Array>} - Returns a list of all trails.
+ */
+
+ exports.view_trails= function () {
+  return new Promise(function(resolve, reject) {
+    // Έλεγχος αν υπάρχουν διαθέσιμες διαδρομές
+    console.log('Checking available trails...');
+    if (trails.length === 0) {
+      reject(new Error("No trails available."));
+      return;
+    }
+
+    // Επιστροφή όλων των διαδρομών 
+    resolve(trails);
+  });
+}
