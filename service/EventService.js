@@ -1,85 +1,69 @@
-'use strict';
-
+let events = [
+  {
+    event_id: 1,
+    name: "Morning Trail Run",
+    location: 101,
+    date: 20241210,
+    hour: 6,
+    min: 30,
+    description: "A refreshing 5-mile run through the scenic riverside trail."
+  },
+  {
+    event_id: 2,
+    name: "Sunset Trail Walk",
+    location: 102,
+    date: 20241211,
+    hour: 17,
+    min: 45,
+    description: "A relaxing evening walk along the lakeside trail to catch the sunset."
+  },
+  {
+    event_id: 3,
+    name: "Eco Trail Exploration",
+    location: 103,
+    date: 20241212,
+    hour: 9,
+    min: 0,
+    description: "A guided eco-friendly walk exploring the flora and fauna of the nature reserve trail."
+  }
+];
 
 /**
- * Create events
- * FR4: The user must be able to create events. 
+ * View a specific event event
  *
- * body Event Create event
- * returns Event
- **/
-exports.creatEvent = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "date" : 1,
-  "event_id" : 0,
-  "min" : 5,
-  "hour" : 5,
-  "name" : "name",
-  "description" : "description",
-  "location" : 6
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+ * @param {number} event_id - ID of the event
+ * @returns {Promise<Object>} - Returns a promise resolving to the event object
+ */
+exports.view_a_specific_event = function (event_id) {
+  return new Promise(function (resolve, reject) {
+    if (typeof event_id !== "number" || event_id <= 0) {
+      reject(new Error("Invalid event ID. It must be a positive number."));
+      return;
     }
+
+    // Find the event by ID
+    const event = events.find((e) => e.event_id === event_id);
+
+    if (!event) {
+      reject(new Error(`not found`));
+      return;
+    }
+
+    resolve(event);
   });
 }
 
-
 /**
- * View a specific event
- * FR3: The user must be able to view the events. 
+ * View events
  *
- * event_id Long ID of event
- * returns Event
- **/
-exports.view_a_specific_event = function(event_id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "date" : 1,
-  "event_id" : 0,
-  "min" : 5,
-  "hour" : 5,
-  "name" : "name",
-  "description" : "description",
-  "location" : 6
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+ * @returns {Promise<Object[]>} - Returns a promise resolving to the list of events
+ */
+exports.view_events = function () {
+  return new Promise((resolve, reject) => {
+    if (!events || events.length === 0) {
+      reject(new Error('No events available.'));
+      return;
     }
+    resolve(events);
   });
 }
-
-
-/**
- * View events.
- * FR3: The user must be able to view the events. 
- *
- * returns Event
- **/
-exports.view_events = function() {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "date" : 1,
-  "event_id" : 0,
-  "min" : 5,
-  "hour" : 5,
-  "name" : "name",
-  "description" : "description",
-  "location" : 6
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
