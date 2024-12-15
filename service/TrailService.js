@@ -64,48 +64,12 @@ let forums = [
   }
 ];
 
-// Mock δεδομένα για αγαπημένες διαδρομές
-let usersFavourites = {
-  1: [1, 3], // Ο χρήστης 1 έχει αποθηκεύσει τις διαδρομές 1 και 3 ως αγαπημένες
-  2: [2] // Ο χρήστης 2 έχει αποθηκεύσει μόνο τη διαδρομή 2
-};
-
 // Mock δεδομένα για φωτογραφίες
 let trailPhotos = {
   1: ["mountain1.jpg", "mountain2.jpg"],
   2: ["forest1.jpg", "forest2.jpg"],
   3: []
 };
-
-/**
- * Create trails
- * FR4: The user must be able to create trails. 
- *
- * body Trail Create a trail
- * returns Trail
- **/
-exports.creatTrail = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "traillength" : 1,
-  "durationHour" : 5,
-  "rate" : 7,
-  "name" : "name",
-  "description" : "description",
-  "trail_id" : 0,
-  "traillocation" : 6,
-  "difficultylevel" : 2,
-  "durationMin" : 5
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
 
 /**
  * Delete a specific trail
