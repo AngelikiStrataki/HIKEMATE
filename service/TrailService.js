@@ -1,5 +1,81 @@
 'use strict';
 
+// Mock δεδομένα για trails
+let trails = [
+  {
+    trail_id: 1,
+    name: "Mountain Adventure",
+    description: "A scenic mountain trail.",
+    traillength: 12.5, // σε χιλιόμετρα
+    durationHour: 4,
+    durationMin: 30,
+    rate: [5, 4, 3], // Αξιολογήσεις
+    traillocation: "Mountain Base",
+    difficultylevel: 3, // Δυσκολία: 1 (εύκολη) έως 5 (πολύ δύσκολη)
+    photos: ["mountain1.jpg", "mountain2.jpg"]
+  },
+  {
+    trail_id: 2,
+    name: "Forest Pathway",
+    description: "Explore the dense forest.",
+    traillength: 8.3,
+    durationHour: 2,
+    durationMin: 15,
+    rate: [],
+    traillocation: "Deep Woods",
+    difficultylevel: 2,
+    photos: ["forest1.jpg", "forest2.jpg", "forest3.jpg"]
+  },
+  {
+    trail_id: 3,
+    name: "River Walk",
+    description: "A relaxing trail along the river.",
+    traillength: 5.0,
+    durationHour: 1,
+    durationMin: 45,
+    rate: [5],
+    traillocation: "Riverside",
+    difficultylevel: 1,
+    photos: []
+  }
+];
+
+// Mock δεδομένα για forums
+let forums = [
+  { 
+    forum_id: 1, 
+    trail_id: 1, 
+    messages: [
+      { userName: "Alice", userComment: "Great experience!", timestamp: "2024-12-01T10:00:00Z" },
+      { userName: "Bob", userComment: "Loved the view!", timestamp: "2024-12-02T12:15:00Z" }
+    ]
+  },
+  { 
+    forum_id: 2, 
+    trail_id: 2, 
+    messages: [
+      { userName: "Charlie", userComment: "Quite challenging!", timestamp: "2024-11-28T14:45:00Z" }
+    ]
+  },
+  { 
+    forum_id: 3, 
+    trail_id: 3, 
+    messages: []
+  }
+];
+
+// Mock δεδομένα για αγαπημένες διαδρομές
+let usersFavourites = {
+  1: [1, 3], // Ο χρήστης 1 έχει αποθηκεύσει τις διαδρομές 1 και 3 ως αγαπημένες
+  2: [2] // Ο χρήστης 2 έχει αποθηκεύσει μόνο τη διαδρομή 2
+};
+
+// Mock δεδομένα για φωτογραφίες
+let trailPhotos = {
+  1: ["mountain1.jpg", "mountain2.jpg"],
+  2: ["forest1.jpg", "forest2.jpg"],
+  3: []
+};
 
 /**
  * Create trails
@@ -40,9 +116,15 @@ exports.creatTrail = function(body) {
  **/
 exports.deleteTrail = function(trail_id) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    const index = trails.findIndex(t => t.trail_id === trail_id);
+    if (index === -1) {
+      reject(new Error(`Trail with ID ${trail_id} not found.`));
+      return;
+    }
+    trails.splice(index, 1); // Αφαιρεί το στοιχείο
+    resolve({ message: `Trail with ID ${trail_id} deleted successfully.` });
   });
-}
+};
 
 
 /**
