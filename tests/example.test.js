@@ -49,10 +49,10 @@ test('GET rate - viewTrailRating should return 0 if no ratings', async (t) => {
         average_rating: 0 
     });
 });
-/**
+
 test('PUT /trail/{trail_id}/rate - πρέπει να ενημερώνει τη βαθμολογία του trail', async (t) => {
     const trailId = 1;
-    const newRating = [5, 4, 3];  // Νέα βαθμολογία για το trail
+    const newRating = 3;  // Νέα βαθμολογία για το trail
     
     // Στέλνουμε το αίτημα PUT με τη νέα βαθμολογία στο σώμα του αιτήματος
     const response = await t.context.got(`trail/${trailId}/rate`, {
@@ -70,7 +70,6 @@ test('PUT /trail/{trail_id}/rate - πρέπει να ενημερώνει τη �
 
 });
 
-*/
 
 test('PUT /trail/{trail_id}/rate - αποτυγχάνει με μη έγκυρη βαθμολογία (μικρότερη από το ελάχιστο)', async (t) => {
   const trailId = 1;
@@ -488,7 +487,7 @@ test('GET /trail - view_trails should return all available trails', async (t) =>
                  traillength: 15.0,
                  durationHour: 5,
                  durationMin: 0,
-                 rate: [4],
+                 rate: [3],
                  traillocation: "Sahara Dunes",
                  difficultylevel: 4,
                  photos: []
