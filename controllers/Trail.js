@@ -4,17 +4,6 @@ var utils = require('../utils/writer.js');
 var Trail = require('../service/TrailService');
 var { trailPhotos } = require('../service/TrailService'); // Εάν το αρχείο είναι μέσα στον φάκελο service
 
-
-module.exports.creatTrail = function creatTrail (req, res, next, body) {
-  Trail.creatTrail(body)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
 module.exports.deleteTrail = function deleteTrail (req, res, next, trail_id) {
   Trail.deleteTrail(trail_id)
     .then(function (response) {
@@ -93,18 +82,12 @@ module.exports.useForum = function useForum (req, res, next, trail_id) {
 module.exports.view_a_specific_trail = function view_a_specific_trail(req, res, next, trail_id) {
   Trail.view_a_specific_trail(trail_id)
     .then(function (response) {
-      // Επιστρέφει την κανονική απόκριση αν το trail βρέθηκε
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 200);
     })
     .catch(function (error) {
-      // Διαχείριση σφάλματος αν το trail δεν βρέθηκε ή υπάρχει άλλο πρόβλημα
-      const statusCode = error.statusCode || 500; // Αν δεν υπάρχει statusCode, χρησιμοποιούμε 500 (Internal Server Error)
-      const message = error.message || "An unexpected error occurred.";
-      
-      res.status(statusCode).json({ message }); // Επιστρέφει το κατάλληλο status code και μήνυμα
+      utils.writeJson(res, { message: error.message }, 404);
     });
 };
-
 
 module.exports.view_trails = function view_trails (req, res, next) {
   Trail.view_trails()
