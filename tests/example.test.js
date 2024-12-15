@@ -51,7 +51,7 @@ test('GET rate - viewTrailRating should return 0 if no ratings', async (t) => {
 });
 
 test('PUT /trail/{trail_id}/rate - πρέπει να ενημερώνει τη βαθμολογία του trail', async (t) => {
-    const trailId = 1;
+    const trailId = 4;
     const newRating = 3;  // Νέα βαθμολογία για το trail
     
     // Στέλνουμε το αίτημα PUT με τη νέα βαθμολογία στο σώμα του αιτήματος
