@@ -17,6 +17,12 @@ jobs:
       - name: Download dependencies
         run: npm install
 
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+           start: npm start
+           wait-on: 'http://localhost:8080/docs' 
+
       - name: Run tests
         run: npm run test
 
