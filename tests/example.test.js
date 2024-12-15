@@ -480,7 +480,19 @@ test('GET /trail - view_trails should return all available trails', async (t) =>
 		  traillocation: "Deep Woods",
 		  difficultylevel: 2,
 		  photos: ["forest1.jpg", "forest2.jpg", "forest3.jpg", "new_photo.jpg"]
-		}
+		},
+		{
+                 trail_id: 4,
+                 name: "Desert Trek",
+                 description: "An adventurous journey through the arid desert.",
+                 traillength: 15.0,
+                 durationHour: 5,
+                 durationMin: 0,
+                 rate: [4],
+                 traillocation: "Sahara Dunes",
+                 difficultylevel: 4,
+                 photos: []
+                 }
 	  ]);
 
 	});
