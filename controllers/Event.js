@@ -3,23 +3,13 @@
 var utils = require('../utils/writer.js');
 var Event = require('../service/EventService');
 
-module.exports.creatEvent = function creatEvent (req, res, next, body) {
-  Event.creatEvent(body)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.view_a_specific_event = function view_a_specific_event (req, res, next, event_id) {
+module.exports.view_a_specific_event = function view_a_specific_event(req, res, next, event_id) {
   Event.view_a_specific_event(event_id)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 200);
     })
-    .catch(function (response) {
-      utils.writeJson(res, response);
+    .catch(function (error) {
+      utils.writeJson(res, { message: error.message }, 404);
     });
 };
 
