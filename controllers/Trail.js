@@ -3,16 +3,6 @@
 var utils = require('../utils/writer.js');
 var Trail = require('../service/TrailService');
 
-module.exports.creatTrail = function creatTrail (req, res, next, body) {
-  Trail.creatTrail(body)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
 module.exports.deleteTrail = function deleteTrail (req, res, next, trail_id) {
   Trail.deleteTrail(trail_id)
     .then(function (response) {
