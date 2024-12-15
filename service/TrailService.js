@@ -61,102 +61,6 @@ let forums = [
   }
 ];
 
-/**
- * Create trails
- * FR4: The user must be able to create trails. 
- *
- * body Trail Create a trail
- * returns Trail
- **/
-exports.creatTrail = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "traillength" : 1,
-  "durationHour" : 5,
-  "rate" : 7,
-  "name" : "name",
-  "description" : "description",
-  "trail_id" : 0,
-  "traillocation" : 6,
-  "difficultylevel" : 2,
-  "durationMin" : 5
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-
-/**
- * Delete a specific trail
- * FR10: The user must be able to delete a specific trail. 
- *
- * trail_id Long ID of trail to delete
- * no response value expected for this operation
- **/
-exports.deleteTrail = function(trail_id) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
-/**
- * Rate a trail
- * FR7: The user must be able to rate the trail. 
- *
- * body Rate Rate the trail
- * trail_id Long ID of trail to rate
- * returns Trail
- **/
-exports.rateTrail = function(body,trail_id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "traillength" : 1,
-  "durationHour" : 5,
-  "rate" : 7,
-  "name" : "name",
-  "description" : "description",
-  "trail_id" : 0,
-  "traillocation" : 6,
-  "difficultylevel" : 2,
-  "durationMin" : 5
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-/**
- * Upload photos
- * FR12: The user must be able to upload photos. 
- *
- * trail_id Long ID of trail to upload photos
- * returns Photo
- **/
-exports.uploadPhotos = function(trail_id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "photo" : ""
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-
 
 /**
  * Use forum for a specific trail.
@@ -164,16 +68,11 @@ exports.uploadPhotos = function(trail_id) {
  * @returns {Promise<Object>} - Returns all forum comments for the trail.
  */
 
-export function useForum(trail_id) {
+exports.useForum = function(trail_id) {
   return new Promise(function(resolve, reject) {
     // Έλεγχος αν υπάρχει forum για το συγκεκριμένο trail_id
-    //const forum1 = forums.find(f => f.trail_id === trailId);
     const forumIndex = trail_id - 1; // Μετατροπή ID σε index
     const forum = forums[forumIndex];
-    if (forum === 0) {
-      reject(new Error(`No forum found for trail with ID ${trail_id}.`));
-      return;
-    }
 
     // Για παράδειγμα, εάν θέλεις να ελέγξεις αν τα σχόλια είναι μη κενά
   if (forum.messages.length === 0) {
@@ -182,7 +81,6 @@ export function useForum(trail_id) {
       messages: "No comments available."
     });
   }
-
     // Επιστροφή σχολίων του forum
     resolve({
       trail_id: trail_id,
@@ -190,6 +88,7 @@ export function useForum(trail_id) {
     });
   });
 }
+
 
 /**
  * View a specific trail
@@ -203,16 +102,18 @@ export function useForum(trail_id) {
  * @param {number} trail_id - The ID of the trail to view.
  * @returns {Promise<Object>} - Returns the trail object if found.
  */
-export function view_a_specific_trail(trail_id) {
-  return new Promise(function(resolve, reject) {
+exports.view_a_specific_trail = function (trail_id) {
+return new Promise(function (resolve, reject) 
+ {
     // Έλεγχος αν το trail_id είναι αριθμός
     if (typeof trail_id !== "number" || trail_id <= 0) {
-      //reject(new Error("Invalid trail ID. It must be a positive number."));
-      return reject(new Error("Invalid trail ID. It must be a positive number."));
+      reject(new Error("Invalid trail ID. It must be a positive number."));
+      return;
     }
 
     // Αναζήτηση διαδρομής με το συγκεκριμένο ID
-    const trail = trails.find(t => t.trail_id === trail_id);
+    //const trail = trails.find(t => t.trail_id === trail_id);
+    const trail = trails.find((t) => t.trail_id === trail_id);
 
     // Έλεγχος αν βρέθηκε η διαδρομή
     if (!trail) {
@@ -224,7 +125,6 @@ export function view_a_specific_trail(trail_id) {
     resolve(trail);
   });
 }
-
 
 /**
  * View trails.
@@ -250,50 +150,3 @@ export function view_a_specific_trail(trail_id) {
     resolve(trails);
   });
 }
-
-/**
- * View photos
- * FR13: The user must be able to view the uploaded photos. 
- *
- * trail_id Long ID of trail to view photos
- * returns List
- **/
-exports.viewPhotos = function(trail_id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "photo" : ""
-}, {
-  "photo" : ""
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-
-/**
- * View trail rating
- * FR8: The user must be able to view the trail's rating. 
- *
- * trail_id Long ID of trail to view rating
- * returns inline_response_200
- **/
-exports.viewTrailRating = function(trail_id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "trail_id" : 0,
-  "average_rating" : 6.0274563
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
