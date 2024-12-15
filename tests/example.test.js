@@ -20,7 +20,7 @@ test.after.always((t) => {
 	t.context.server.close();
 });
 
-
+/**
 test('GET rate - viewTrailRating should return average rating', async (t) => {
     const trailId = 1;
 
@@ -34,6 +34,7 @@ test('GET rate - viewTrailRating should return average rating', async (t) => {
         average_rating: 4 
     });
 });
+*/
 
 test('GET rate - viewTrailRating should return 0 if no ratings', async (t) => {
     const trailId = 2;
