@@ -1,6 +1,6 @@
 describe('Initial visits', () => {
     
-  it('navigates to sign in screen and checks UI elements', () => {
+  it('navigates to screen and checks UI elements', () => {
       // Επισκέπτεται το Swagger Docs
       cy.visit('http://localhost:8080/docs');
       
@@ -28,7 +28,7 @@ describe('Initial visits', () => {
 });
 
  
-
+//Ελέγχει την πρόσβαση μέσα στα endpoint
 describe('Test GET /trail Endpoint', () => {
     it('Validates GET /trail API response', () => {
       // Επισκέπτεται το Swagger Docs
