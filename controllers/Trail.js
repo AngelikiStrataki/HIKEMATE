@@ -26,14 +26,11 @@ module.exports.rateTrail = function rateTrail (req, res, next, body, trail_id) {
 
 
 module.exports.uploadPhotos = function uploadPhotos(req, res, next, body, trail_id) {
-  console.log("Debug: Received trail_id:", trail_id);
-  console.log("Debug: Received body:", body);
 
 
 
   Trail.uploadPhotos(trail_id, body)
     .then((response) => {
-      console.log("Debug: Successful response from uploadPhotos:", response);
       utils.writeJson(res, response, 201); // Επιστροφή επιτυχούς απόκρισης
     })
     .catch((error) => {
