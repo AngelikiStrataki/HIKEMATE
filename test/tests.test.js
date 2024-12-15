@@ -89,3 +89,15 @@ test('GET /event - view_events should return all available events', async (t) =>
       t.fail(`Unexpected response: ${response.statusCode}`);
     }
 });
+
+test('DELETE /trail/:trail_id - deleteTrail should successfully delete a trail', async (t) => {
+  const trailId = 3; // ID του trail που θέλουμε να διαγράψουμε
+  
+  // Κλήση της API για τη διαγραφή
+  const response = await t.context.got.delete(`trail/${trailId}`);
+  
+  t.is(response.statusCode, 200); // Επιτυχής διαγραφή
+  t.deepEqual(response.body, { 
+    message: `Trail with ID ${trailId} deleted successfully.`});
+
+});
