@@ -81,38 +81,7 @@ let trailPhotos = {
 
 
 
-/**
- * Create trails
- * FR4: The user must be able to create trails. 
- *
- * body Trail Create a trail
- * returns Trail
- **/
 
-
- exports.creatTrail = function(body) {
-  return new Promise(function(resolve, reject) {
-    if (!body.name || !body.traillength) {
-      reject(new Error("Missing required fields: name or traillength."));
-      return;
-    }
-
-    const newTrail = {
-      traillength: body.traillength,
-      durationHour: body.durationHour || 0,
-      rate: body.rate || 0,
-      name: body.name,
-      description: body.description || "",
-      trail_id: trails.length + 1, // Αυτόματο ID
-      traillocation: body.traillocation || 0,
-      difficultylevel: body.difficultylevel || 1,
-      durationMin: body.durationMin || 0
-    };
-
-    trails.push(newTrail); // Προσθήκη στη λίστα
-    resolve(newTrail);
-  });
-};
 
 
 
