@@ -1,14 +1,32 @@
 describe('Initial visits', () => {
-    it('navigates to sign in screen', () => {
-        cy.visit('http://localhost:8080/docs');
-        cy.get('.download-url-button.button').should('be.visible').click();
-        cy.get('.description').should('have.text', 'Your Companion on Every Trail');
-        cy.get('section.block.col-12.block-desktop.col-12-desktop') // Στοχεύει το section
-          .find('div.opblock-tag-section') // Βρίσκει όλα τα div με την κλάση "opblock-tag-section"
-          .should('have.length', 3) // Ελέγχει αν υπάρχουν ακριβώς 3 στοιχεία
-          .and('be.visible'); // Ελέγχει ότι είναι ορατά
-    });
+    
+  it('navigates to sign in screen and checks UI elements', () => {
+      // Επισκέπτεται το Swagger Docs
+      cy.visit('http://localhost:8080/docs');
+      
+      // Ελέγχει αν το κουμπί για download είναι ορατό και το κλικάρει
+      cy.get('.download-url-button.button')
+        .should('be.visible')
+        .click();
+      
+      // Ελέγχει αν η περιγραφή έχει το σωστό κείμενο
+      cy.get('.description')
+        .should('have.text', 'Your Companion on Every Trail');
+  });
+
+  it('verifies the presence of 3 visible opblock sections', () => {
+      // Επισκέπτεται ξανά το Swagger Docs
+      cy.visit('http://localhost:8080/docs');
+
+      // Στοχεύει το section και ελέγχει για 3 div με την κλάση "opblock-tag-section"
+      cy.get('section.block.col-12.block-desktop.col-12-desktop') // Στοχεύει το section
+        .find('div.opblock-tag-section') // Βρίσκει όλα τα div με την κλάση "opblock-tag-section"
+        .should('have.length', 3) // Ελέγχει αν υπάρχουν ακριβώς 3 στοιχεία
+        .and('be.visible'); // Ελέγχει ότι είναι ορατά
+  });
+
 });
+
  
 
 describe('Test GET /trail Endpoint', () => {
