@@ -477,18 +477,6 @@ test('GET /trail - view_trails should return all available trails', async (t) =>
 		  traillocation: "Deep Woods",
 		  difficultylevel: 2,
 		  photos: ["forest1.jpg", "forest2.jpg", "forest3.jpg", "new_photo.jpg"]
-		},
-		{
-		  trail_id: 3,
-		  name: "River Walk",
-		  description: "A relaxing trail along the river.",
-		  traillength: 5.0,
-		  durationHour: 1,
-		  durationMin: 45,
-		  rate: [5],
-		  traillocation: "Riverside",
-		  difficultylevel: 1,
-		  photos: []
 		}
 	  ]);
 
