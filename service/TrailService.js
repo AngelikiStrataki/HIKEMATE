@@ -135,55 +135,6 @@ exports.rateTrail = function(body,trail_id) {
   });
 }
 
-
-/**
- * Send messages to forum.
- * FR6: The user must be able to use a forum for each trail. 
- *
- * body Forum forum
- * forum_id Long ID of forum
- * trail_id Long ID of trail
- * returns Forum
- **/
-exports.sendmessage = function(body,forum_id,trail_id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "userComment" : "userComment",
-  "userName" : "userName"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-
-/**
- * Store favourite trail
- * FR9: The user must be able to store favourite trails. 
- *
- * body Favourite Store favourite trails
- * trail_id Long ID of trail to add to favourites
- * returns Favourite
- **/
-exports.storeFavourite = function(body,trail_id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "favourite" : true
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-
 /**
  * Upload photos
  * FR12: The user must be able to upload photos. 
@@ -206,8 +157,6 @@ exports.uploadPhotos = function(trail_id) {
 }
 
 
-// Αποθήκευση σχολίων φόρουμ ανά trail_id
-let forumData = {};
 
 /**
  * Use forum for a specific trail.
