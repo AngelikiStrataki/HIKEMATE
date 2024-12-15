@@ -91,11 +91,10 @@ describe('Test GET /trail Endpoint', () => {
   });
 
  describe('Initial visits', () => {
-    it('should display 10 components with the correct names', () => {
+    it('should display 9 components with the correct names', () => {
       const expectedNames = [
         'Trail',
         'Forum',
-        'Favourite',
         'Rate',
         'Photo',
         'Error',
@@ -127,7 +126,7 @@ describe('Test GET /trail Endpoint', () => {
   
       // Εντόπισε όλα τα components
       cy.get('div.model-container')
-        .should('have.length', 10) // Επιβεβαιώνουμε ότι υπάρχουν 12 στοιχεία
+        .should('have.length', 9) // Επιβεβαιώνουμε ότι υπάρχουν 12 στοιχεία
         .each(($el) => {
           // Βεβαιώσου ότι το component είναι ορατό
           cy.wrap($el).should('be.visible');
@@ -146,7 +145,6 @@ describe('Test GET /trail Endpoint', () => {
     const components = [
       'Trail',
       'Forum',
-      'Favourite',
       'Rate',
       'Photo',
       'Error',
