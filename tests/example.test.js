@@ -215,6 +215,51 @@ test('POST /trail/{trailId}/photos - Bad Request (Invalid Data Type)', async (t)
     t.is(statusCode, 400); // Expected HTTP status 400
 });
 
+test('DELETE /trail/:trail_id - deleteTrail should successfully delete a trail', async (t) => {
+  const trailId = 3; // ID του trail που θέλουμε να διαγράψουμε
+  
+  // Κλήση της API για τη διαγραφή
+  const response = await t.context.got.delete(`trail/${trailId}`);
+  
+  t.is(response.statusCode, 200); // Επιτυχής διαγραφή
+  t.deepEqual(response.body, { 
+    message: `Trail with ID ${trailId} deleted successfully.`});
+
+});
+
+test('GET /event/:event_id - view_a_specific_event should return a specific event', async (t) => {
+    const eventId = 1; // The event ID we want to check
+  
+    // Perform a GET request for the event with the event_id
+    const response = await t.context.got(`event/${eventId}`);
+  
+    t.is(response.statusCode, 200); // Expected response status 200 (OK)
+  
+    t.deepEqual(response.body, {
+      event_id: 1,
+      name: 'Morning Trail Run',
+      location: 101,
+      date: 20241210,
+      hour: 6,
+      min: 30,
+      description: 'A refreshing 5-mile run through the scenic riverside trail.',
+    });
+  });
+
+test('GET /event/:event_id - Retrieve an invalid event', async (t) => {
+    const { got } = t.context;
+
+    const invalidEventId = 999; // An ID that doesn’t exist
+
+     //Send request to retrieve an invalid event
+     const response = await got(`event/${invalidEventId}`, { method: 'GET' });
+
+     //Validate the response status
+    t.is(response.statusCode, 404);
+
+     //Validate the error message
+    t.is(response.body.message, 'not found', 'Should return appropriate error message');
+});
 
 test('POST filters - enterSearchfilters should return filtered trails', async (t) => {
     const filters = { 
