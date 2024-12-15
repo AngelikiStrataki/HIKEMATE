@@ -16,8 +16,8 @@ test.after.always((t) => {
 });
 
 test('PUT /trail/{trail_id}/rate - πρέπει να ενημερώνει τη βαθμολογία του trail', async (t) => {
-    const trailId = 1;
-    const newRating = 5;  // Νέα βαθμολογία για το trail
+    const trailId = 4;
+    const newRating = 3;  // Νέα βαθμολογία για το trail
     
     // Στέλνουμε το αίτημα PUT με τη νέα βαθμολογία στο σώμα του αιτήματος
     const response = await t.context.got(`trail/${trailId}/rate`, {
@@ -34,6 +34,7 @@ test('PUT /trail/{trail_id}/rate - πρέπει να ενημερώνει τη �
     t.is(response.body.rate, newRating);
 
 });
+
 
 test('PUT /trail/{trail_id}/rate - αποτυγχάνει με μη έγκυρη βαθμολογία (μικρότερη από το ελάχιστο)', async (t) => {
   const trailId = 1;
