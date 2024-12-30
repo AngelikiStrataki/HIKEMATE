@@ -2,16 +2,7 @@
 
 var utils = require('../utils/writer.js');
 var Trail = require('../service/TrailService');
-
-module.exports.creatTrail = function creatTrail (req, res, next, body) {
-  Trail.creatTrail(body)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
+var { trailPhotos } = require('../service/TrailService'); // Εάν το αρχείο είναι μέσα στον φάκελο service
 
 module.exports.deleteTrail = function deleteTrail (req, res, next, trail_id) {
   Trail.deleteTrail(trail_id)
@@ -33,35 +24,26 @@ module.exports.rateTrail = function rateTrail (req, res, next, body, trail_id) {
     });
 };
 
-module.exports.sendmessage = function sendmessage (req, res, next, body, forum_id, trail_id) {
-  Trail.sendmessage(body, forum_id, trail_id)
-    .then(function (response) {
-      utils.writeJson(res, response);
+
+module.exports.uploadPhotos = function uploadPhotos(req, res, next, body, trail_id) {
+
+
+
+  Trail.uploadPhotos(trail_id, body)
+    .then((response) => {
+      utils.writeJson(res, response, 201); // Επιστροφή επιτυχούς απόκρισης
     })
-    .catch(function (response) {
-      utils.writeJson(res, response);
+    .catch((error) => {
+      console.error("Error in uploadPhotos:", error); // Εκτύπωση του σφάλματος
+      console.error("Error stack trace:", error.stack); // Εκτύπωση του stack trace
+      const statusCode = error.statusCode || 500;
+      const message = error.message || "Internal Server Error";
+      utils.writeJson(res, { message }, statusCode); // Επιστροφή σφάλματος
     });
+
 };
 
-module.exports.storeFavourite = function storeFavourite (req, res, next, body, trail_id) {
-  Trail.storeFavourite(body, trail_id)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
 
-module.exports.uploadPhotos = function uploadPhotos (req, res, next, trail_id) {
-  Trail.uploadPhotos(trail_id)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
 
 module.exports.useForum = function useForum (req, res, next, trail_id) {
   Trail.useForum(trail_id)
@@ -73,13 +55,13 @@ module.exports.useForum = function useForum (req, res, next, trail_id) {
     });
 };
 
-module.exports.view_a_specific_trail = function view_a_specific_trail (req, res, next, trail_id) {
+module.exports.view_a_specific_trail = function view_a_specific_trail(req, res, next, trail_id) {
   Trail.view_a_specific_trail(trail_id)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 200);
     })
-    .catch(function (response) {
-      utils.writeJson(res, response);
+    .catch(function (error) {
+      utils.writeJson(res, { message: error.message }, 404);
     });
 };
 
@@ -93,15 +75,21 @@ module.exports.view_trails = function view_trails (req, res, next) {
     });
 };
 
-module.exports.viewPhotos = function viewPhotos (req, res, next, trail_id) {
+module.exports.viewPhotos = function viewPhotos(req, res, next, trail_id) {
   Trail.viewPhotos(trail_id)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 200); // Επιστρέφει επιτυχία με status 200
     })
-    .catch(function (response) {
-      utils.writeJson(res, response);
+    .catch(function (error) {
+      // Διασφαλίζουμε ότι το σφάλμα περιέχει statusCode και μήνυμα
+      const statusCode = error.statusCode || 500; // Default status 500 αν δεν υπάρχει
+      const message = error.message || 'Internal Server Error';
+
+      // Γράφουμε την απόκριση σφάλματος
+      utils.writeJson(res, { message }, statusCode);
     });
 };
+
 
 module.exports.viewTrailRating = function viewTrailRating (req, res, next, trail_id) {
   Trail.viewTrailRating(trail_id)
