@@ -73,7 +73,7 @@ module.exports.useForum = function useForum (req, res, next, trail_id) {
     });
 };
 
-module.exports.view a specific trail = function view a specific trail (req, res, next, trail_id) {
+module.exports.view_a_specific_trail = function view_a_specific_trail (req, res, next, trail_id) {
   Trail.view a specific trail(trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -83,7 +83,7 @@ module.exports.view a specific trail = function view a specific trail (req, res,
     });
 };
 
-module.exports.view trails = function view trails (req, res, next) {
+module.exports.view_trails = function view_trails (req, res, next) {
   Trail.view trails()
     .then(function (response) {
       utils.writeJson(res, response);
