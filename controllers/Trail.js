@@ -11,13 +11,13 @@ module.exports.deleteTrail = function deleteTrail (_, res, next, trail_id) {
     })
     .catch(function (response) {
       utils.writeJson(res, response);
-          if (next) {
-      next(error); // Κλήση του next για να διαχειριστεί το σφάλμα ο κεντρικός χειριστής σφαλμάτων
+      if (next) {
+        next(error); // Κλήση του next για να διαχειριστεί το σφάλμα ο κεντρικός χειριστής σφαλμάτων
     }
     });
 };
 
-module.exports.rateTrail = function rateTrail (req, res, next, body, trail_id) {
+module.exports.rateTrail = function rateTrail (_, res, next, body, trail_id) {
   Trail.rateTrail(body, trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -25,6 +25,7 @@ module.exports.rateTrail = function rateTrail (req, res, next, body, trail_id) {
     .catch(function (response) {
       utils.writeJson(res, response);
     });
+  console.log(next);
 };
 
 
