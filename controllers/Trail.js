@@ -11,6 +11,9 @@ module.exports.deleteTrail = function deleteTrail (_, res, next, trail_id) {
     })
     .catch(function (response) {
       utils.writeJson(res, response);
+          if (next) {
+      next(error); // Κλήση του next για να διαχειριστεί το σφάλμα ο κεντρικός χειριστής σφαλμάτων
+    }
     });
 };
 
