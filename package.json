@@ -29,7 +29,7 @@
     "cypress": "^13.16.1",
     "got": "^11.8.3",
     "test-listen": "^1.1.0",
-    "eslint": "^8.0.0"  // Προσθήκη του eslint ως devDependency αν δεν είναι ήδη εγκατεστημένο
+    "eslint": "^8.0.0" 
   },
   "ava": {
     "extensions": {
