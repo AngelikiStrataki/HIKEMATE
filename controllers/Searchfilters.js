@@ -5,7 +5,7 @@ var Searchfilters = require('../service/SearchfiltersService');
 
 
 //module.exports.enterSearchfilters = function enterSearchfilters(req, res, next, body) {
-module.exports.enterSearchfilters = function enterSearchfilters(_ , res, _ , body) {
+module.exports.enterSearchfilters = function enterSearchfilters(req, res, next, body) {
 
   if (!body || Object.keys(body).length === 0) {
     utils.writeJson(res, { message: 'Invalid or missing filters' }, 400);
