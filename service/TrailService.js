@@ -78,7 +78,7 @@ let forums = [
 let trailPhotos = {
   1: ["mountain1.jpg", "mountain2.jpg"],
   2: ["forest1.jpg", "forest2.jpg"],
-  //3: []
+  3: []
 };
 
 
