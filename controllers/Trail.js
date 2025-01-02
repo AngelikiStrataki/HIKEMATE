@@ -14,7 +14,7 @@ module.exports.deleteTrail = function deleteTrail (_, res,  __, trail_id) {
     });
 };
 
-module.exports.rateTrail = function rateTrail (_, res, __, body, trail_id) {
+module.exports.rateTrail = function rateTrail (_, res, next, body, trail_id) {
   Trail.rateTrail(body, trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
