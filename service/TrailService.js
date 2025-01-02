@@ -274,7 +274,7 @@ exports.viewPhotos = function(trail_id) {
 
 exports.useForum = function(trail_id) {
 //return new Promise(function(resolve,reject){
-  return new Promise(function(resolve, _) {
+  return new Promise(function(resolve,reject) {
     // Έλεγχος αν υπάρχει forum για το συγκεκριμένο trail_id
     const forumIndex = trail_id - 1; // Μετατροπή ID σε index
     const forum = forums[forumIndex];
