@@ -4,15 +4,16 @@ var utils = require('../utils/writer.js');
 var Trail = require('../service/TrailService');
 //var { trailPhotos } = require('../service/TrailService'); // Εάν το αρχείο είναι μέσα στον φάκελο service
 
-module.exports.deleteTrail = function deleteTrail (_, res,  __, trail_id) {
+module.exports.deleteTrail = function deleteTrail(_, res, next, trail_id) {
   Trail.deleteTrail(trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
-    .catch(function (response) {
-      utils.writeJson(res, response);
+    .catch(function (error) {
+      next(error); // Προώθηση στο error handler middleware
     });
 };
+
 
 module.exports.rateTrail = function rateTrail (_, res, next, body, trail_id) {
   Trail.rateTrail(body, trail_id)
