@@ -4,7 +4,7 @@ var utils = require('../utils/writer.js');
 var Trail = require('../service/TrailService');
 //var { trailPhotos } = require('../service/TrailService'); // Εάν το αρχείο είναι μέσα στον φάκελο service
 
-module.exports.deleteTrail = function deleteTrail (_, res,  _unusedParam, trail_id) {
+module.exports.deleteTrail = function deleteTrail (_, res,  __, trail_id) {
   Trail.deleteTrail(trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -14,7 +14,7 @@ module.exports.deleteTrail = function deleteTrail (_, res,  _unusedParam, trail_
     });
 };
 
-module.exports.rateTrail = function rateTrail (_, res, next, body, trail_id) {
+module.exports.rateTrail = function rateTrail (_, res, __, body, trail_id) {
   Trail.rateTrail(body, trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -26,7 +26,7 @@ module.exports.rateTrail = function rateTrail (_, res, next, body, trail_id) {
 };
 
 
-module.exports.uploadPhotos = function uploadPhotos(req, res, next, body, trail_id) {
+module.exports.uploadPhotos = function uploadPhotos(_, res, __, body, trail_id) {
 
   Trail.uploadPhotos(trail_id, body)
     .then((response) => {
@@ -44,7 +44,7 @@ module.exports.uploadPhotos = function uploadPhotos(req, res, next, body, trail_
 
 
 
-module.exports.useForum = function useForum (req, res, next, trail_id) {
+module.exports.useForum = function useForum (_, res, __, trail_id) {
   Trail.useForum(trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -54,7 +54,7 @@ module.exports.useForum = function useForum (req, res, next, trail_id) {
     });
 };
 
-module.exports.view_a_specific_trail = function view_a_specific_trail(req, res, _, trail_id) {
+module.exports.view_a_specific_trail = function view_a_specific_trail(_, res, __, trail_id) {
   Trail.view_a_specific_trail(trail_id)
     .then(function (response) {
       utils.writeJson(res, response, 200);
@@ -64,7 +64,7 @@ module.exports.view_a_specific_trail = function view_a_specific_trail(req, res, 
     });
 };
 
-module.exports.view_trails = function view_trails (req, res, next) {
+module.exports.view_trails = function view_trails (_, res, __) {
   Trail.view_trails()
     .then(function (response) {
       utils.writeJson(res, response);
@@ -74,7 +74,7 @@ module.exports.view_trails = function view_trails (req, res, next) {
     });
 };
 
-module.exports.viewPhotos = function viewPhotos(req, res, next, trail_id) {
+module.exports.viewPhotos = function viewPhotos(_, res, __, trail_id) {
   Trail.viewPhotos(trail_id)
     .then(function (response) {
       utils.writeJson(res, response, 200); // Επιστρέφει επιτυχία με status 200
@@ -90,7 +90,7 @@ module.exports.viewPhotos = function viewPhotos(req, res, next, trail_id) {
 };
 
 
-module.exports.viewTrailRating = function viewTrailRating (req, res, next, trail_id) {
+module.exports.viewTrailRating = function viewTrailRating (_, res, __, trail_id) {
   Trail.viewTrailRating(trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
