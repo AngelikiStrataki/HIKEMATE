@@ -2,7 +2,6 @@
 
 var utils = require('../utils/writer.js');
 var Trail = require('../service/TrailService');
-//var { trailPhotos } = require('../service/TrailService'); // Εάν το αρχείο είναι μέσα στον φάκελο service
 
 module.exports.deleteTrail = function deleteTrail(_, res, next, trail_id) {
   Trail.deleteTrail(trail_id)
