@@ -27,7 +27,7 @@ module.exports.rateTrail = function rateTrail (_, res, next, body, trail_id) {
 };
 
 
-module.exports.uploadPhotos = function uploadPhotos(_, res, next, body, trail_id) {
+module.exports.uploadPhotos = function uploadPhotos(_, res, _, body, trail_id) {
 
   Trail.uploadPhotos(trail_id, body)
     .then((response) => {
