@@ -12,9 +12,10 @@ module.exports = {
    * @param {string} event_id - The ID of the event
    */
   view_a_specific_event(_, res, event_id) {
-    const parsedEventId = parseInt(event_id, 10); // Ensure event_id is a number
+    const parsedEventId = parseInt(event_id, 10); // Parse event_id into an integer
     if (isNaN(parsedEventId) || parsedEventId <= 0) {
-      utils.writeJson(res, { message: 'Invalid event ID.' }, 400);
+      // Invalid event ID
+      utils.writeJson(res, { message: 'not found' }, 404);
       return;
     }
 
@@ -22,8 +23,9 @@ module.exports = {
       .then((response) => {
         utils.writeJson(res, response, 200);
       })
-      .catch((error) => {
-        utils.writeJson(res, { message: error.message }, 404);
+      .catch(() => {
+        // Event not found
+        utils.writeJson(res, { message: 'not found' }, 404);
       });
   },
 
@@ -38,9 +40,11 @@ module.exports = {
       .then((response) => {
         utils.writeJson(res, response, 200);
       })
-      .catch((error) => {
-        utils.writeJson(res, { message: error.message }, 500);
+      .catch(() => {
+        // No events available
+        utils.writeJson(res, { message: 'No events available.' }, 500);
       });
   },
 };
+
 
