@@ -3,7 +3,7 @@
 var utils = require('../utils/writer.js');
 var Event = require('../service/EventService');
 
-module.exports.view_a_specific_event = function view_a_specific_event(_, res, next, event_id) {
+module.exports.view_a_specific_event = function view_a_specific_event(_, res, _next, event_id) {
   const parsedEventId = parseInt(event_id, 10);
   if (isNaN(parsedEventId) || parsedEventId <= 0) {
     // Respond with 404 and "not found" if the event ID is invalid
@@ -21,7 +21,7 @@ module.exports.view_a_specific_event = function view_a_specific_event(_, res, ne
     });
 };
 
-module.exports.view_events = function view_events(_, res, next) {
+module.exports.view_events = function view_events(_, res, _next) {
   Event.view_events()
     .then(function (response) {
       utils.writeJson(res, response, 200);
@@ -31,5 +31,6 @@ module.exports.view_events = function view_events(_, res, next) {
       utils.writeJson(res, { message: 'No events available.' }, 500);
     });
 };
+
 
 
