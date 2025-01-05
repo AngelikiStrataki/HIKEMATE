@@ -12,7 +12,13 @@ module.exports = {
    * @param {string} event_id - The ID of the event
    */
   view_a_specific_event(_, res, event_id) {
-    Event.view_a_specific_event(event_id)
+    const parsedEventId = parseInt(event_id, 10); // Ensure event_id is a number
+    if (isNaN(parsedEventId) || parsedEventId <= 0) {
+      utils.writeJson(res, { message: 'Invalid event ID.' }, 400);
+      return;
+    }
+
+    Event.view_a_specific_event(parsedEventId)
       .then((response) => {
         utils.writeJson(res, response, 200);
       })
