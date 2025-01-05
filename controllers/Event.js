@@ -1,50 +1,35 @@
 'use strict';
 
-const utils = require('../utils/writer.js');
-const Event = require('../service/EventService');
+var utils = require('../utils/writer.js');
+var Event = require('../service/EventService');
 
-module.exports = {
-  /**
-   * View a specific event by its ID.
-   *
-   * @param {Object} _ - Placeholder for unused request parameter
-   * @param {Object} res - Response object
-   * @param {string} event_id - The ID of the event
-   */
-  view_a_specific_event(_, res, event_id) {
-    const parsedEventId = parseInt(event_id, 10); // Parse event_id into an integer
-    if (isNaN(parsedEventId) || parsedEventId <= 0) {
-      // Invalid event ID
+module.exports.view_a_specific_event = function view_a_specific_event(_, res, next, event_id) {
+  const parsedEventId = parseInt(event_id, 10);
+  if (isNaN(parsedEventId) || parsedEventId <= 0) {
+    // Respond with 404 and "not found" if the event ID is invalid
+    utils.writeJson(res, { message: 'not found' }, 404);
+    return;
+  }
+
+  Event.view_a_specific_event(parsedEventId)
+    .then(function (response) {
+      utils.writeJson(res, response, 200);
+    })
+    .catch(function () {
+      // Respond with 404 and "not found" if the event does not exist
       utils.writeJson(res, { message: 'not found' }, 404);
-      return;
-    }
+    });
+};
 
-    Event.view_a_specific_event(parsedEventId)
-      .then((response) => {
-        utils.writeJson(res, response, 200);
-      })
-      .catch(() => {
-        // Event not found
-        utils.writeJson(res, { message: 'not found' }, 404);
-      });
-  },
-
-  /**
-   * View all events.
-   *
-   * @param {Object} _ - Placeholder for unused request parameter
-   * @param {Object} res - Response object
-   */
-  view_events(_, res) {
-    Event.view_events()
-      .then((response) => {
-        utils.writeJson(res, response, 200);
-      })
-      .catch(() => {
-        // No events available
-        utils.writeJson(res, { message: 'No events available.' }, 500);
-      });
-  },
+module.exports.view_events = function view_events(_, res, next) {
+  Event.view_events()
+    .then(function (response) {
+      utils.writeJson(res, response, 200);
+    })
+    .catch(function () {
+      // Respond with 500 and "No events available." if there are no events
+      utils.writeJson(res, { message: 'No events available.' }, 500);
+    });
 };
 
 
