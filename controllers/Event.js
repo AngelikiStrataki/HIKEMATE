@@ -1,25 +1,40 @@
-
 'use strict';
 
-var utils = require('../utils/writer.js');
-var Event = require('../service/EventService');
+const utils = require('../utils/writer.js');
+const Event = require('../service/EventService');
 
-module.exports.view_a_specific_event = function view_a_specific_event(_, res, next, event_id) {
-  Event.view_a_specific_event(event_id)
-    .then(function (response) {
-      utils.writeJson(res, response, 200);
-    })
-    .catch(function (error) {
-      utils.writeJson(res, { message: error.message }, 404);
-    });
+module.exports = {
+  /**
+   * View a specific event by its ID.
+   *
+   * @param {Object} _ - Placeholder for unused request parameter
+   * @param {Object} res - Response object
+   * @param {string} event_id - The ID of the event
+   */
+  view_a_specific_event(_, res, event_id) {
+    Event.view_a_specific_event(event_id)
+      .then((response) => {
+        utils.writeJson(res, response, 200);
+      })
+      .catch((error) => {
+        utils.writeJson(res, { message: error.message }, 404);
+      });
+  },
+
+  /**
+   * View all events.
+   *
+   * @param {Object} _ - Placeholder for unused request parameter
+   * @param {Object} res - Response object
+   */
+  view_events(_, res) {
+    Event.view_events()
+      .then((response) => {
+        utils.writeJson(res, response, 200);
+      })
+      .catch((error) => {
+        utils.writeJson(res, { message: error.message }, 500);
+      });
+  },
 };
 
-module.exports.view_events = function view_events (_, res, next) {
-  Event.view_events()
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
