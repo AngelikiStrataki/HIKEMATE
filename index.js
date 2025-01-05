@@ -26,7 +26,7 @@ app.use(express.json());
 
 // Middleware για διαχείριση σφαλμάτων
 //app.use((err, req, res, next) => {
-app.use((err, _, res, next) => {
+app.use((err, _, res, /* eslint-disable no-unused-vars */ _next) => {
     console.error(err.stack);
     res.status(err.status || 500).json({
         message: err.message || 'Internal Server Error',
