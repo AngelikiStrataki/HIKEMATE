@@ -4,7 +4,6 @@ var utils = require('../utils/writer.js');
 var Searchfilters = require('../service/SearchfiltersService');
 
 
-//module.exports.enterSearchfilters = function enterSearchfilters(req, res, next, body) {
 module.exports.enterSearchfilters = function enterSearchfilters(_ , res, /* eslint-disable no-unused-vars */ _next, body) {
 
   if (!body || Object.keys(body).length === 0) {
