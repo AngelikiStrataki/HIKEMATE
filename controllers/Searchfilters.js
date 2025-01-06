@@ -3,7 +3,10 @@
 var utils = require('../utils/writer.js');
 var Searchfilters = require('../service/SearchfiltersService');
 
-
+/**
+ * Handles the submission of search filters.
+ * Validates the input and processes the search filters if valid.
+ */
 module.exports.enterSearchfilters = function enterSearchfilters(_ , res, /* eslint-disable no-unused-vars */ _next, body) {
 
   if (!body || Object.keys(body).length === 0) {
@@ -24,4 +27,4 @@ module.exports.enterSearchfilters = function enterSearchfilters(_ , res, /* esli
 
       utils.writeJson(res, { message: error.message }, statusCode);
     });
-}; 
+};
