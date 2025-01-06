@@ -22,7 +22,6 @@ module.exports.rateTrail = function rateTrail (_, res, next, body, trail_id) {
     .catch(function (response) {
       utils.writeJson(res, response);
     });
-  console.log(next);
 };
 
 
