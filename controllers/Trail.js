@@ -6,7 +6,7 @@ var Trail = require('../service/TrailService');
 /**
  * Deletes a specific trail by its ID.
  */
-module.exports.deleteTrail = function deleteTrail(_, res, __, trail_id) {
+module.exports.deleteTrail = function deleteTrail(_, res, next, trail_id) {
   Trail.deleteTrail(trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
