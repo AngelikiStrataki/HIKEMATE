@@ -74,15 +74,6 @@ let forums = [
 ];
 
 
-// Mock δεδομένα για φωτογραφίες
-//let trailPhotos = {
-//  1: ["mountain1.jpg", "mountain2.jpg"],
-//  2: ["forest1.jpg", "forest2.jpg"],
-//  3: []
-//};
-
-
-
 /**
  * Delete a specific trail
  * FR10: The user must be able to delete a specific trail. 
@@ -273,7 +264,6 @@ exports.viewPhotos = function(trail_id) {
  */
 
 exports.useForum = function(trail_id) {
-//return new Promise(function(resolve,reject) {
   return new Promise(function(resolve, _ ) {
     // Έλεγχος αν υπάρχει forum για το συγκεκριμένο trail_id
     const forumIndex = trail_id - 1; // Μετατροπή ID σε index
