@@ -3,20 +3,19 @@
 var utils = require('../utils/writer.js');
 var Searchfilters = require('../service/SearchfiltersService');
 
-
-
-module.exports.enterSearchfilters = function enterSearchfilters(req, res, next, body) {
-  console.log('Received request body:', body);
+/**
+ * Handles the submission of search filters.
+ * Validates the input and processes the search filters if valid.
+ */
+module.exports.enterSearchfilters = function enterSearchfilters(_ , res, /* eslint-disable no-unused-vars */ _next, body) {
 
   if (!body || Object.keys(body).length === 0) {
-    console.error('Invalid or missing request body');
     utils.writeJson(res, { message: 'Invalid or missing filters' }, 400);
     return;
   }
 
   Searchfilters.enterSearchfilters(body)
     .then(function (response) {
-      console.log('Searchfilters.enterSearchfilters success response:', response);
       utils.writeJson(res, response, 201);
     })
     .catch(function (error) {
@@ -28,4 +27,4 @@ module.exports.enterSearchfilters = function enterSearchfilters(req, res, next, 
 
       utils.writeJson(res, { message: error.message }, statusCode);
     });
-}; 
+};
