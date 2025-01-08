@@ -2,30 +2,21 @@
 
 var utils = require('../utils/writer.js');
 var Trail = require('../service/TrailService');
-var { trailPhotos } = require('../service/TrailService'); // Εάν το αρχείο είναι μέσα στον φάκελο service
 
-
-module.exports.creatTrail = function creatTrail (req, res, next, body) {
-  Trail.creatTrail(body)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.deleteTrail = function deleteTrail (req, res, next, trail_id) {
+/**
+ * Deletes a specific trail by its ID.
+ */
+module.exports.deleteTrail = function deleteTrail(_, res, __, trail_id) {
   Trail.deleteTrail(trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
     });
 };
 
-module.exports.rateTrail = function rateTrail (req, res, next, body, trail_id) {
+/**
+ * Rates a specific trail based on user input.
+ */
+module.exports.rateTrail = function rateTrail (_, res, __, body, trail_id) {
   Trail.rateTrail(body, trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -35,52 +26,27 @@ module.exports.rateTrail = function rateTrail (req, res, next, body, trail_id) {
     });
 };
 
-module.exports.sendmessage = function sendmessage (req, res, next, body, forum_id, trail_id) {
-  Trail.sendmessage(body, forum_id, trail_id)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.storeFavourite = function storeFavourite (req, res, next, body, trail_id) {
-  Trail.storeFavourite(body, trail_id)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-
-
-module.exports.uploadPhotos = function uploadPhotos(req, res, next, body, trail_id) {
-  console.log("Debug: Received trail_id:", trail_id);
-  console.log("Debug: Received body:", body);
-
-
-
+/**
+ * Uploads photos for a specific trail.
+ */
+module.exports.uploadPhotos = function uploadPhotos(_, res, __, body, trail_id) {
   Trail.uploadPhotos(trail_id, body)
     .then((response) => {
-      console.log("Debug: Successful response from uploadPhotos:", response);
-      utils.writeJson(res, response, 201); // Επιστροφή επιτυχούς απόκρισης
+      utils.writeJson(res, response, 201); // Successful response
     })
     .catch((error) => {
-      console.error("Error in uploadPhotos:", error); // Εκτύπωση του σφάλματος
-      console.error("Error stack trace:", error.stack); // Εκτύπωση του stack trace
+      console.error("Error in uploadPhotos:", error); // Print the error
+      console.error("Error stack trace:", error.stack); // Print the stack trace
       const statusCode = error.statusCode || 500;
       const message = error.message || "Internal Server Error";
-      utils.writeJson(res, { message }, statusCode); // Επιστροφή σφάλματος
+      utils.writeJson(res, { message }, statusCode); // Return error response
     });
-
 };
 
-
-
-module.exports.useForum = function useForum (req, res, next, trail_id) {
+/**
+ * Accesses the forum associated with a specific trail.
+ */
+module.exports.useForum = function useForum (_, res, __, trail_id) {
   Trail.useForum(trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -90,23 +56,23 @@ module.exports.useForum = function useForum (req, res, next, trail_id) {
     });
 };
 
-module.exports.view_a_specific_trail = function view_a_specific_trail(req, res, next, trail_id) {
+/**
+ * Retrieves details of a specific trail by its ID.
+ */
+module.exports.view_a_specific_trail = function view_a_specific_trail(_, res, __, trail_id) {
   Trail.view_a_specific_trail(trail_id)
     .then(function (response) {
-      // Επιστρέφει την κανονική απόκριση αν το trail βρέθηκε
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 200);
     })
     .catch(function (error) {
-      // Διαχείριση σφάλματος αν το trail δεν βρέθηκε ή υπάρχει άλλο πρόβλημα
-      const statusCode = error.statusCode || 500; // Αν δεν υπάρχει statusCode, χρησιμοποιούμε 500 (Internal Server Error)
-      const message = error.message || "An unexpected error occurred.";
-      
-      res.status(statusCode).json({ message }); // Επιστρέφει το κατάλληλο status code και μήνυμα
+      utils.writeJson(res, { message: error.message }, 404);
     });
 };
 
-
-module.exports.view_trails = function view_trails (req, res, next) {
+/**
+ * Retrieves a list of all available trails.
+ */
+module.exports.view_trails = function view_trails (_, res, __) {
   Trail.view_trails()
     .then(function (response) {
       utils.writeJson(res, response);
@@ -116,23 +82,28 @@ module.exports.view_trails = function view_trails (req, res, next) {
     });
 };
 
-module.exports.viewPhotos = function viewPhotos(req, res, next, trail_id) {
+/**
+ * Retrieves photos associated with a specific trail.
+ */
+module.exports.viewPhotos = function viewPhotos(_, res, __, trail_id) {
   Trail.viewPhotos(trail_id)
     .then(function (response) {
-      utils.writeJson(res, response, 200); // Επιστρέφει επιτυχία με status 200
+      utils.writeJson(res, response, 200); // Successful response
     })
     .catch(function (error) {
-      // Διασφαλίζουμε ότι το σφάλμα περιέχει statusCode και μήνυμα
-      const statusCode = error.statusCode || 500; // Default status 500 αν δεν υπάρχει
+      // Ensure the error contains a statusCode and message
+      const statusCode = error.statusCode || 500; // Default status 500 if not present
       const message = error.message || 'Internal Server Error';
 
-      // Γράφουμε την απόκριση σφάλματος
+      // Write the error response
       utils.writeJson(res, { message }, statusCode);
     });
 };
 
-
-module.exports.viewTrailRating = function viewTrailRating (req, res, next, trail_id) {
+/**
+ * Retrieves the rating of a specific trail.
+ */
+module.exports.viewTrailRating = function viewTrailRating (_, res, __, trail_id) {
   Trail.viewTrailRating(trail_id)
     .then(function (response) {
       utils.writeJson(res, response);
