@@ -28,11 +28,18 @@
     "c8": "^8.0.1",
     "cypress": "^13.16.1",
     "got": "^11.8.3",
-    "test-listen": "^1.1.0"
+    "test-listen": "^1.1.0",
+    "eslint": "^8.0.0" 
   },
   "ava": {
     "extensions": {
       "js": true
+    }
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "rules": {
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
     }
   }
 }
