@@ -1,16 +1,3 @@
-'use strict';
-
-/**
- * Create events
- * FR4: The user must be able to create events. 
- *
- * body Event Create event
- * returns Event
- **/
-
-
-'use strict';
-
 let events = [
   {
     event_id: 1,
@@ -41,26 +28,24 @@ let events = [
   }
 ];
 
- 
-
-
 /**
  * View a specific event event
  *
  * @param {number} event_id - ID of the event
  * @returns {Promise<Object>} - Returns a promise resolving to the event object
  */
-exports.view_a_specific_event = function(event_id) {
+exports.view_a_specific_event = function (event_id) {
   return new Promise(function (resolve, reject) {
     if (typeof event_id !== "number" || event_id <= 0) {
       reject(new Error("Invalid event ID. It must be a positive number."));
       return;
     }
 
+    // Find the event by ID
     const event = events.find((e) => e.event_id === event_id);
 
     if (!event) {
-      reject(new Error(`Event with ID ${event_id} not found.`));
+      reject(new Error(`not found`));
       return;
     }
 
@@ -68,13 +53,12 @@ exports.view_a_specific_event = function(event_id) {
   });
 }
 
-
 /**
  * View events
  *
  * @returns {Promise<Object[]>} - Returns a promise resolving to the list of events
  */
-exports.view_events = function() {
+exports.view_events = function () {
   return new Promise((resolve, reject) => {
     if (!events || events.length === 0) {
       reject(new Error('No events available.'));
@@ -83,4 +67,3 @@ exports.view_events = function() {
     resolve(events);
   });
 }
-
