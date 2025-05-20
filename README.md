@@ -1,3 +1,91 @@
+# HIKEMATE 🥾
+
+## Overview
+**HIKEMATE** is a smart hiking assistant that helps users discover, plan, and track hiking routes. It combines real-time location data, interactive maps, trail information, and user management.
+
+This project includes both a **frontend app** for end-users and a **backend API** generated using **Swagger Codegen** and powered by Express.js.
+
+> 📘 **Note:** The accompanying project documentation and reports are written in **Greek**.
+
+---
+
+## 🚀 Backend (Swagger-Generated API)
+
+This server was generated using the **swagger-codegen** project based on an OpenAPI specification.
+
+### 🔧 Running the Server
+
+```bash
+npm install
+npm start
+```
+
+### 🌐 Swagger UI
+
+After starting the server, you can explore the API via Swagger UI at:
+
+```
+http://localhost:8080/docs
+```
+
+The server uses the **swagger-tools** middleware to handle routing and validation.
+
+---
+
+## 📱 Frontend App (Work in Progress)
+
+We are also developing a mobile application that includes:
+
+- User Registration & Login
+- Viewing available hiking trails
+- Interactive trail maps with GPS support
+- Trail difficulty & elevation data
+- Favorite trails and trail history
+
+### ✅ Completed so far:
+- Basic screens and UI components
+- Firebase integration for authentication
+- Map view and location access
+- Software architecture design
+
+---
+
+## 🧪 Technologies Used
+
+- **Frontend:** React Native / Flutter *(depending on final choice)*
+- **Backend:** Node.js + Express (Swagger-generated)
+- **Database:** Firebase / Firestore
+- **Maps:** Mapbox or Google Maps
+- **OpenAPI:** Swagger 2.0 / OpenAPI 3.0
+
+---
+
+## 🧰 Project Setup
+
+```bash
+# Clone repository
+git clone https://github.com/AngelikiStrataki/HIKEMATE.git
+cd HIKEMATE
+
+# Install backend dependencies
+npm install
+
+# Start server
+npm start
+```
+
+For frontend, follow setup steps inside the `frontend/` folder (if applicable).
+
+---
+
+## 📚 Documentation
+
+- Project report (in Greek): includes technical architecture and implementation details.
+- Swagger API documentation: available at `/docs` after backend launch.
+
+---
+
+
 # Swagger generated server
 
 ## Overview
